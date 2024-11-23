@@ -11,6 +11,12 @@
 
     pre-commit-hooks.url = "github:cachix/git-hooks.nix";
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    impermanence.url = "github:nix-community/impermanence";
+
   };
 
   outputs =
@@ -23,11 +29,20 @@
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      inherit (nixpkgs) lib;
-
+      inherit (self) outputs;
+      inherit (nixpkgs) lib pkgs;
       my = {
-        lib = import ./lib { inherit lib; };
-        vars = import ./vars;
+        lib = import ./lib { inherit lib pkgs; };
+        vars = import ./vars { };
+      };
+
+      specialArgs = {
+        inherit
+          my
+          inputs
+          outputs
+          nixpkgs
+          ;
       };
     in
     {
@@ -58,9 +73,14 @@
         import ./shell.nix { inherit checks pkgs; }
       );
 
-      nixosConfigurations =
-        {
+      nixosConfigurations = {
+
+        vesna = lib.nixosSystem {
+          inherit specialArgs;
+          modules = [ ./host/vesna ];
         };
+
+      };
 
     };
 

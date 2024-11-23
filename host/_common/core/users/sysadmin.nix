@@ -17,11 +17,14 @@ in
     };
 
     users.users.${sysadmin} = {
+      group = sysadmin;
       password = "changeme";
       isNormalUser = true;
       extraGroups =
         [ "wheel" ]
         ++ my.lib.user.filterGroups config [
+          sysadmin
+          "users"
           "git"
           "audio"
           "video"

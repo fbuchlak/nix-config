@@ -1,0 +1,4 @@
+[default]
+binary = false
+
+[default.extend-words]

@@ -25,6 +25,15 @@
     in
     {
 
+      overlays = import ./overlays { inherit inputs; };
+      packages = forAllSystems (
+        system:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        import ./packages { inherit pkgs; }
+      );
+
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
       checks = forAllSystems (
         system:

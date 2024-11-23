@@ -1,0 +1,11 @@
+--- a/st.c
++++ b/st.c
+@@ -36,7 +36,7 @@
+ #define CAR_PER_ARG   4
+ #define STR_BUF_SIZ   ESC_BUF_SIZ
+ #define STR_ARG_SIZ   ESC_ARG_SIZ
+-#define HISTSIZE      2000
++#define HISTSIZE      50000
+ #define RESIZEBUFFER  1000
+ 
+ /* macros */

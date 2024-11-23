@@ -1,0 +1,41 @@
+Refer to: https://st.suckless.org/patches/dynamic-cursor-color/
+Original: https://st.suckless.org/patches/dynamic-cursor-color/st-dynamic-cursor-color-0.9.diff
+Authors:
+    - Kipras Melnikovas (kipras.org) kipras@kipras.org
+    - Stein Gunnar Bakkeby (github.com/bakkeby)
+
+--- a/x.c
++++ b/x.c
+@@ -1951,6 +1951,7 @@ void
+ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
+ {
+ 	Color drawcol;
++	XRenderColor colbg;
+ 
+ 	/* remove the old cursor */
+ 	if (selected(ox, oy))
+@@ -1979,11 +1980,21 @@ xdrawcursor(int cx, int cy, Glyph g, int ox, int oy, Glyph og)
+ 		if (selected(cx, cy)) {
+ 			g.fg = defaultfg;
+ 			g.bg = defaultrcs;
++		} else if (!(og.mode & ATTR_REVERSE)) {
++			unsigned long col = g.bg;
++			g.bg = g.fg;
++			g.fg = col;
++		}
++
++		if (IS_TRUECOL(g.bg)) {
++			colbg.alpha = 0xffff;
++			colbg.red = TRUERED(g.bg);
++			colbg.green = TRUEGREEN(g.bg);
++			colbg.blue = TRUEBLUE(g.bg);
++			XftColorAllocValue(xw.dpy, xw.vis, xw.cmap, &colbg, &drawcol);
+ 		} else {
+-			g.fg = defaultbg;
+-			g.bg = defaultcs;
++			drawcol = dc.col[g.bg];
+ 		}
+-		drawcol = dc.col[g.bg];
+ 	}
+ 
+ 	/* draw the new one */

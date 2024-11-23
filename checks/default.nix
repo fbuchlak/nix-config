@@ -7,6 +7,9 @@
 {
   pre-commit-check = inputs.pre-commit-hooks.lib.${system}.run {
     src = ../.;
+    excludes = [
+      "overlays/patches"
+    ];
     hooks = {
 
       detect-private-keys.enable = true;

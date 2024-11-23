@@ -12,4 +12,16 @@
       )
     );
 
+  patches =
+    path:
+    builtins.sort builtins.lessThan (
+      builtins.map (file: "${path}/${file}") (
+        builtins.attrNames (
+          lib.attrsets.filterAttrs (
+            path: type: ((type != "directory") && (lib.strings.hasSuffix ".patch" path))
+          ) (builtins.readDir path)
+        )
+      )
+    );
+
 }

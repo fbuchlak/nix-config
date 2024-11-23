@@ -1,4 +1,5 @@
-_: {
+{ pkgs, ... }:
+{
 
   # TODO: Change DE
 
@@ -14,4 +15,9 @@ _: {
   programs.neovim.enable = true;
   programs.firefox.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    dmenu
+    dwm
+    st
+  ];
 }

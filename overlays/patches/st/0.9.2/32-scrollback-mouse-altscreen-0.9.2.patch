@@ -1,0 +1,71 @@
+Refer to: https://st.suckless.org/patches/scrollback/
+Original: https://st.suckless.org/patches/scrollback/st-scrollback-mouse-altscreen-20220127-2c5edf2.diff
+Authors:
+    - Jochen Sprickerhof - st@jochen.sprickerhof.de
+    - M Farkas-Dyck - strake888@gmail.com
+    - Ivan Tham - pickfire@riseup.net (mouse scrolling)
+    - Ori Bernstein - ori@eigenstate.org (fix memory bug)
+    - Matthias Schoth - mschoth@gmail.com (auto altscreen scrolling)
+    - Laslo Hunhold - dev@frign.de (unscrambling, git port)
+    - Paride Legovini - pl@ninthfloor.org (don't require the Shift modifier when using the auto altscreen scrolling)
+    - Lorenzo Bracco - devtry@riseup.net (update base patch, use static variable for config)
+    - Kamil Kleban - funmaker95@gmail.com (fix altscreen detection)
+    - Avi Halachmi - avihpit@yahoo.com (mouse + altscreen rewrite after a2c479c)
+    - Jacob Prosser - geriatricjacob@cumallover.me
+    - Timo Röhling - timo@gaussglocke.de (ring buffer implementation)
+    - Alexander Arkhipov - scm_2022@mineeyes.cyou (0.8.5 update)
+    - Ashish Kumar Yadav - ashishkumar.yadav@students.iiserpune.ac.in (reflow implementation)
+
+--- a/config.def.h
++++ b/config.def.h
+@@ -215,6 +215,8 @@ ResourcePref resources[] = {
+  */
+ static MouseShortcut mshortcuts[] = {
+ 	/* mask                 button   function        argument       release */
++	{ XK_ANY_MOD,           Button4, kscrollup,      {.i = 1},		0, /* !alt */ -1 },
++	{ XK_ANY_MOD,           Button5, kscrolldown,    {.i = 1},		0, /* !alt */ -1 },
+ 	{ XK_ANY_MOD,           Button2, selpaste,       {.i = 0},      1 },
+ 	{ ShiftMask,            Button4, ttysend,        {.s = "\033[5;2~"} },
+ 	{ XK_ANY_MOD,           Button4, ttysend,        {.s = "\031"} },
+--- a/st.c
++++ b/st.c
+@@ -1053,6 +1053,11 @@ tsetdirt(int top, int bot)
+ 		term.dirty[i] = 1;
+ }
+ 
++int tisaltscr(void)
++{
++	return IS_SET(MODE_ALTSCREEN);
++}
++
+ void
+ tsetdirtattr(int attr)
+ {
+--- a/st.h
++++ b/st.h
+@@ -94,6 +94,7 @@ void sendbreak(const Arg *);
+ void toggleprinter(const Arg *);
+ 
+ int tattrset(int);
++int tisaltscr(void);
+ void tnew(int, int);
+ int tisaltscreen(void);
+ void tresize(int, int);
+--- a/x.c
++++ b/x.c
+@@ -35,6 +35,7 @@ typedef struct {
+ 	void (*func)(const Arg *);
+ 	const Arg arg;
+ 	uint  release;
++	int  altscrn;  /* 0: don't care, -1: not alt screen, 1: alt screen */
+ } MouseShortcut;
+ 
+ typedef struct {
+@@ -480,6 +481,7 @@ mouseaction(XEvent *e, uint release)
+ 	for (ms = mshortcuts; ms < mshortcuts + LEN(mshortcuts); ms++) {
+ 		if (ms->release == release &&
+ 		    ms->button == e->xbutton.button &&
++		    (!ms->altscrn || (ms->altscrn == (tisaltscr() ? 1 : -1))) &&
+ 		    (match(ms->mod, state) ||  /* exact or forced */
+ 		     match(ms->mod, state & ~forcemousemod))) {
+ 			ms->func(&(ms->arg));

@@ -2,6 +2,7 @@
   my,
   lib,
   pkgs,
+  inputs,
   outputs,
   ...
 }:
@@ -9,11 +10,16 @@
 
   imports = lib.flatten [
     (my.lib.files.nix ./.)
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   nixpkgs = {
     overlays = builtins.attrValues outputs.overlays;
     config.allowUnfree = lib.mkDefault false;
+  };
+
+  home-manager.extraSpecialArgs = {
+    inherit inputs outputs;
   };
 
   programs.git.enable = true;

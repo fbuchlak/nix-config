@@ -22,10 +22,17 @@
     let
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+
+      inherit (nixpkgs) lib;
+
+      my = {
+        lib = import ./lib { inherit lib; };
+        vars = import ./vars;
+      };
     in
     {
 
-      overlays = import ./overlays { inherit inputs; };
+      overlays = import ./overlays { inherit my inputs; };
       packages = forAllSystems (
         system:
         let

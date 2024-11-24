@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+xset r rate 400 75
+xrandr --dpi 160
+xrdb -merge .Xresources
+
+pidof -sx dwm >/dev/null || dwm

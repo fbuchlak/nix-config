@@ -1,0 +1,77 @@
+! Normal      Bright
+! --------    -------
+! 0 Black      8 Black
+! 1 Red        9 Red
+! 2 Yellow    10 Yellow
+! 3 Green     11 Green
+! 4 Blue      12 Blue
+! 5 Magenta   13 Magenta
+! 6 Cyan      14 Cyan
+! 7 White     15 White
+
+#define cFG #CAD3F5
+#define cBG #24273A
+
+#define c00 #494D64
+#define c01 #ED8796
+#define c02 #A6DA95
+#define c03 #EED49F
+#define c04 #8AADF4
+#define c05 #F5BDE6
+#define c06 #8BD5CA
+#define c07 #B8C0E0
+#define c08 #5B6078
+#define c09 #ED8796
+#define c10 #A6DA95
+#define c11 #EED49F
+#define c12 #8AADF4
+#define c13 #F5BDE6
+#define c14 #8BD5CA
+#define c15 #A5ADCB
+
+*.color0: c00
+*.color1: c01
+*.color2: c02
+*.color3: c03
+*.color4: c04
+*.color5: c05
+*.color6: c06
+*.color7: c07
+*.color8: c08
+*.color9: c09
+*.color10: c10
+*.color11: c11
+*.color12: c12
+*.color13: c13
+*.color14: c14
+*.color15: c15
+
+*foreground: cFG
+*background: cBG
+*cursorColor: c07
+*borderColor: c08
+
+*.alpha: .8
+*.font: JetBrainsMono\ Nerd\ Font:size=14
+
+dwm.bgColor: cBG
+dwm.boColor: cBG
+dwm.fgColor: cFG
+dwm.bgColorActive: c04
+dwm.boColorActive: c04
+dwm.fgColorActive: cBG
+
+dwm.font: JetBrainsMono\ Nerd\ Font:size=14
+dwm.dmenuFont: JetBrainsMono\ Nerd\ Font:size=14
+dwm.borderpx: 4
+dwm.gappih: 8
+dwm.gappiv: 8
+dwm.gappoh: 8
+dwm.gappov: 8
+
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb

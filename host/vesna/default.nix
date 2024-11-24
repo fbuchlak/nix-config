@@ -16,6 +16,7 @@
       "host/_common/optional/boot/loader/systemd-boot.nix"
       "host/_common/optional/boot/uefi.nix"
       "host/_common/optional/audio"
+      "host/_common/optional/desktops/dwm"
     ])
 
     (import (my.lib.config.file "host/_common/optional/disk/nvme.nix"))

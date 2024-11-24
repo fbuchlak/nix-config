@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+_: {
 
   programs.git = {
     enable = true;
@@ -25,19 +24,6 @@
           insteadOf = "https://gitlab.com/fbuchlak";
         };
       };
-    };
-
-    delta = {
-      enable = true;
-      options = {
-        diff-so-fancy = true;
-        line-numbers = true;
-        true-color = lib.mkDefault true;
-      };
-    };
-
-    aliases = {
-      st = "status";
     };
 
   };

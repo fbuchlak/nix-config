@@ -28,6 +28,7 @@ in
           "git"
           "audio"
           "video"
+          "docker"
           "networkmanager"
         ];
     };

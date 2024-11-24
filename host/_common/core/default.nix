@@ -18,8 +18,9 @@
     config.allowUnfree = lib.mkDefault false;
   };
 
+  programs.fuse.userAllowOther = true;
   home-manager.extraSpecialArgs = {
-    inherit inputs outputs;
+    inherit my inputs outputs;
   };
 
   programs.git.enable = true;

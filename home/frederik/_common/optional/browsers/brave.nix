@@ -8,10 +8,16 @@
 
   home.persistence = {
     "${my.vars.persistence.home.mnt}${config.home.homeDirectory}".directories = [
-      ".config/BraveSoftware/Brave-Browser"
+      {
+        directory = ".config/BraveSoftware/Brave-Browser";
+        method = "symlink";
+      }
     ];
     "${my.vars.persistence.cache.mnt}${config.home.homeDirectory}".directories = [
-      ".cache/BraveSoftware/Brave-Browser"
+      {
+        directory = ".cache/BraveSoftware/Brave-Browser";
+        method = "symlink";
+      }
     ];
   };
 }

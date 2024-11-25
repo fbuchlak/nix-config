@@ -42,7 +42,10 @@
 
   home.persistence = {
     "${my.vars.persistence.home.mnt}${config.home.homeDirectory}".directories = [
-      ".local/state/lazygit"
+      {
+        directory = ".local/state/lazygit";
+        method = "symlink";
+      }
     ];
   };
 

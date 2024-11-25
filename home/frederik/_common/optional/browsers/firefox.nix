@@ -27,10 +27,16 @@
 
   home.persistence = {
     "${my.vars.persistence.home.mnt}${config.home.homeDirectory}".directories = [
-      ".mozilla/firefox"
+      {
+        directory = ".mozilla/firefox";
+        method = "symlink";
+      }
     ];
     "${my.vars.persistence.cache.mnt}${config.home.homeDirectory}".directories = [
-      ".cache/mozilla/firefox"
+      {
+        directory = ".cache/mozilla/firefox";
+        method = "symlink";
+      }
     ];
   };
 

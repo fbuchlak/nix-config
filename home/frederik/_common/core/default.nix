@@ -36,17 +36,36 @@ in
       "${persistence.home.mnt}${config.home.homeDirectory}" = {
         allowOther = true;
         directories = [
-          ".ssh"
-          "projects"
-          "nix-config"
+          {
+            directory = ".ssh";
+            method = "symlink";
+          }
+          {
+            directory = "projects";
+            method = "symlink";
+          }
+          {
+            directory = "nix-config";
+            method = "symlink";
+          }
         ];
       };
 
       "${persistence.data.mnt}${config.home.homeDirectory}" = {
         allowOther = true;
         directories = [
-          "media"
-          "downloads"
+          {
+            directory = "documents";
+            method = "symlink";
+          }
+          {
+            directory = "downloads";
+            method = "symlink";
+          }
+          {
+            directory = "media";
+            method = "symlink";
+          }
         ];
         files = [
           ".bash_history"

@@ -13,7 +13,6 @@ _: {
     ];
 
     extraConfig = {
-      pull.rebase = true;
       init.defaultBranch = "main";
 
       url = {

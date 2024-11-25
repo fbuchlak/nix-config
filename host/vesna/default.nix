@@ -8,7 +8,7 @@
 {
   imports = lib.flatten [
 
-    ./desktop.nix
+    ./temporary.nix
     ./hardware-configuration.nix
 
     (map my.lib.config.file [
@@ -17,6 +17,7 @@
       "host/_common/optional/boot/uefi.nix"
       "host/_common/optional/audio"
       "host/_common/optional/desktops/dwm"
+      "host/_common/optional/virt/podman.nix"
     ])
 
     (import (my.lib.config.file "host/_common/optional/disk/nvme.nix"))

@@ -35,14 +35,13 @@ in
     programs.zsh.enable = true;
     programs.git.enable = true;
     environment.systemPackages = with pkgs; [
-
+      vim
       wget
       curl
       rsync
-
-      neovim
+      fd
+      fzf
       ripgrep
-
     ];
   };
 

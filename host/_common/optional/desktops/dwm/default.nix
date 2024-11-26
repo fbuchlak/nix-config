@@ -7,10 +7,4 @@
     xterm
   ];
 
-  environment.systemPackages = with pkgs; [
-    st
-    dwm
-    dmenu
-  ];
-
 }

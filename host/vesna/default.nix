@@ -11,7 +11,7 @@
     ./temporary.nix
     ./hardware-configuration.nix
 
-    (map my.lib.config.file [
+    (map my.lib.config.path [
       "host/_common/core"
       "host/_common/optional/boot/loader/systemd-boot.nix"
       "host/_common/optional/boot/uefi.nix"
@@ -20,8 +20,8 @@
       "host/_common/optional/virt/podman.nix"
     ])
 
-    (import (my.lib.config.file "host/_common/optional/disk/nvme.nix"))
-    (import (my.lib.config.file "host/_common/optional/disk/layout/tmpfs-root+luks-encrypted-btrfs.nix")
+    (import (my.lib.config.path "host/_common/optional/disk/nvme.nix"))
+    (import (my.lib.config.path "host/_common/optional/disk/layout/tmpfs-root+luks-encrypted-btrfs.nix")
       {
         inherit my lib inputs;
         deviceMain = "/dev/nvme0n1"; # WD_BLACK SN850X 1TB
@@ -36,7 +36,7 @@
   ];
 
   # Users
-  home-manager.users.frederik = import (my.lib.config.file "home/frederik/vesna.nix");
+  home-manager.users.frederik = import (my.lib.config.path "home/frederik/vesna.nix");
 
   # System
   boot.kernelPackages = pkgs.linuxPackages_6_12;

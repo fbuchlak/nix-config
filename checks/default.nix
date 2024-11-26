@@ -9,6 +9,7 @@
     src = ../.;
     excludes = [
       "overlays/patches"
+      "home/frederik/_common/optional/desktops/xserver/patches"
     ];
     hooks = {
 

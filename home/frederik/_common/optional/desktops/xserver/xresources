@@ -54,20 +54,16 @@
 *.alpha: .8
 *.font: JetBrainsMono\ Nerd\ Font:size=14
 
-dwm.bgColor: cBG
-dwm.boColor: cBG
-dwm.fgColor: cFG
-dwm.bgColorActive: c04
-dwm.boColorActive: c04
-dwm.fgColorActive: cBG
+dwm.normbgcolor: cBG
+dwm.normbordercolor: cBG
+dwm.normfgcolor: cFG
+dwm.selbgcolor: c04
+dwm.selbordercolor: c04
+dwm.selfgcolor: cBG
 
 dwm.font: JetBrainsMono\ Nerd\ Font:size=14
 dwm.dmenuFont: JetBrainsMono\ Nerd\ Font:size=14
 dwm.borderpx: 4
-dwm.gappih: 8
-dwm.gappiv: 8
-dwm.gappoh: 8
-dwm.gappov: 8
 
 Xft.autohint: 0
 Xft.lcdfilter: lcddefault

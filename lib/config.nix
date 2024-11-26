@@ -1,6 +1,6 @@
 { lib }:
 {
 
-  file = lib.path.append ../.;
+  path = lib.path.append ../.;
 
 }

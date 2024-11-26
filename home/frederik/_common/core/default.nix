@@ -88,8 +88,8 @@ in
       enable = true;
       createDirectories = true;
       # Data
-      download = "${config.home.homeDirectory}/documents";
-      documents = "${config.home.homeDirectory}/downloads";
+      download = "${config.home.homeDirectory}/downloads";
+      documents = "${config.home.homeDirectory}/documents";
       # Media
       music = "${config.home.homeDirectory}/media/audio";
       videos = "${config.home.homeDirectory}/media/video";

@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  my,
+  pkgs,
+  config,
+  ...
+}:
 {
 
   home.packages = with pkgs; [
@@ -25,6 +30,15 @@
       ];
       emoji = [ "Noto Color Emoji" ];
     };
+  };
+
+  home.persistence = {
+    "${my.vars.persistence.cache.mnt}${config.home.homeDirectory}".directories = [
+      {
+        directory = ".cache/fontconfig";
+        method = "symlink";
+      }
+    ];
   };
 
 }

@@ -1,5 +1,9 @@
 _: {
 
+  home.shellAliases = {
+    gst = "git status";
+  };
+
   programs.git = {
     enable = true;
 

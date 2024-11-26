@@ -6,6 +6,10 @@
 }:
 {
 
+  home.shellAliases = {
+    lg = "lazygit";
+  };
+
   programs.git = {
     delta = {
       enable = true;

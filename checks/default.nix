@@ -9,6 +9,7 @@
     src = ../.;
     excludes = [
       "overlays/patches"
+      "home/frederik/_common/core/shell/zsh/p10k.zsh"
       "home/frederik/_common/optional/desktops/xserver/patches"
     ];
     hooks = {

@@ -4,11 +4,10 @@
     _common/core
 
     _common/optional/desktops/xserver
-
     _common/optional/browsers
     _common/optional/nvim
+    _common/optional/cli
     _common/optional/git
-    _common/optional/tui
 
     _common/optional/virt/podman.nix
 

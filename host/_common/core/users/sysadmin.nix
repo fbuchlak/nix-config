@@ -17,6 +17,7 @@ in
     };
 
     users.users.${sysadmin} = {
+      shell = pkgs.zsh;
       group = sysadmin;
       password = "changeme";
       isNormalUser = true;

@@ -1,22 +1,13 @@
-{ my, pkgs, ... }:
+{ pkgs, ... }:
 {
-
-  imports = my.lib.files.nix ./.;
-
-  home.shellAliases = {
-    top = "htop";
-  };
-
-  home.packages = with pkgs; [
-    htop
-  ];
 
   programs.tmux = {
     enable = true;
     plugins = with pkgs.tmuxPlugins; [
-      sensible
       open
       yank
+      sensible
+      extrakto
       catppuccin
       vim-tmux-navigator
     ];
@@ -36,6 +27,8 @@
       bind -T copy-mode-vi v send-keys -X begin-selection
       bind C-l send-keys C-l
       bind C-\\ send-keys C-\\
+      bind-key b split-window -c "#{pane_current_path}"
+      bind-key v split-window -h -c "#{pane_current_path}"
     '';
   };
 

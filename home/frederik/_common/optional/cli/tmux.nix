@@ -27,8 +27,8 @@
       bind -T copy-mode-vi v send-keys -X begin-selection
       bind C-l send-keys C-l
       bind C-\\ send-keys C-\\
-      bind-key b split-window -c "#{pane_current_path}"
-      bind-key v split-window -h -c "#{pane_current_path}"
+      bind % split-window -h -c "#{pane_current_path}"
+      bind '"' split-window -v -c "#{pane_current_path}"
     '';
   };
 

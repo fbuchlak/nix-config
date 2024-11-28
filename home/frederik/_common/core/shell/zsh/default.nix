@@ -17,7 +17,7 @@
     syntaxHighlighting.enable = true;
 
     history = {
-      path = ".local/share/zsh/history";
+      path = "${config.home.homeDirectory}/.local/share/zsh/history";
       size = 50000;
       share = true;
       append = true;
@@ -32,6 +32,7 @@
         "poweroff|sudo poweroff *|reboot|sudo reboot *|shutdown|sudo shutdown *"
         "rm *|rmdir *"
         "sh|zsh|bash|fish"
+        "/nix/store*"
       ];
     };
 

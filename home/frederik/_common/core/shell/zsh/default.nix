@@ -14,7 +14,11 @@
 
     autocd = true;
     autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
+
+    syntaxHighlighting = {
+      enable = true;
+      catppuccin.enable = true;
+    };
 
     history = {
       path = "${config.home.homeDirectory}/.local/share/zsh/history";

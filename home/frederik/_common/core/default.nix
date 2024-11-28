@@ -12,8 +12,11 @@ in
 {
   imports = lib.flatten [
     inputs.impermanence.nixosModules.home-manager.impermanence
+    inputs.catppuccin.homeManagerModules.catppuccin
     (my.lib.files.nix ./.)
   ];
+
+  catppuccin.flavor = "mocha";
 
   home = {
     stateVersion = lib.mkDefault "24.05";

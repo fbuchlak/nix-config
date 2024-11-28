@@ -8,14 +8,25 @@
       yank
       sensible
       extrakto
-      catppuccin
       vim-tmux-navigator
     ];
+    catppuccin = {
+      enable = true;
+      extraConfig = ''
+        set -g @catppuccin_window_status_style "basic"
+        set -g @catppuccin_window_current_text " #{b:pane_current_path}"
+        set -g @catppuccin_window_text " #{b:pane_current_path}"
+        set -g status-left ""
+        set -g status-left-length 100
+        set -g status-right-length 100
+        set -g status-right "#{E:@catppuccin_status_application}"
+        set -ag status-right "#{E:@catppuccin_status_session}"
+      '';
+    };
     extraConfig = ''
       set -g default-terminal "xterm-256color"
       set -ga terminal-overrides ",*256col*:Tc"
       set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
-      set -g @catpuccin_flavour 'macchiato'
       set-environment -g COLORTERM "truecolor"
       set-option -g mouse on
       set -g base-index 1

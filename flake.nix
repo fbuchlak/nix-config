@@ -17,6 +17,7 @@
     };
     impermanence.url = "github:nix-community/impermanence";
 
+    catppuccin.url = "github:catppuccin/nix";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";

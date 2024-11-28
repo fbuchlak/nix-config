@@ -2,28 +2,9 @@ _: {
 
   programs.zathura = {
     enable = true;
+    catppuccin.enable = true;
     options = {
       "selection-clipboard" = "clipboard";
-      "completion-bg" = "#EED49F"; # c03
-      "completion-fg" = "#8AADF4"; # c04
-      "completion-highlight-bg" = "#EED49F"; # c03
-      "completion-highlight-fg" = "#8AADF4"; # c04
-      "default-bg" = "#24273A"; # cBG
-      "default-fg" = "#CAD3F5"; # cFG
-      "highlight-active-color" = "#8AADF4"; # c04
-      "highlight-color" = "#EED49F"; # c03
-      "inputbar-bg" = "#24273A"; # cBG
-      "inputbar-fg" = "#CAD3F5"; # cFG
-      "notification-bg" = "#24273A"; # cBG
-      "notification-error-bg" = "#24273A"; # cBG
-      "notification-error-fg" = "#CAD3F5"; # cFG
-      "notification-fg" = "#CAD3F5"; # cFG
-      "notification-warning-bg" = "#24273A"; # cBG
-      "notification-warning-fg" = "#CAD3F5"; # cFG
-      "recolor-darkcolor" = "#CAD3F5"; # cFG
-      "recolor-lightcolor" = "#24273A"; # cBG
-      "statusbar-bg" = "#24273A"; # cBG
-      "statusbar-fg" = "#CAD3F5"; # cFG
     };
     mappings = {
       "[normal] i" = "recolor";

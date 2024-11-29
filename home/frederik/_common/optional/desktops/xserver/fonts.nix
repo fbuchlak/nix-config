@@ -1,9 +1,4 @@
-{
-  my,
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, ... }:
 {
 
   home.packages = with pkgs; [
@@ -32,13 +27,6 @@
     };
   };
 
-  home.persistence = {
-    "${my.vars.persistence.cache.mnt}${config.home.homeDirectory}".directories = [
-      {
-        directory = ".cache/fontconfig";
-        method = "symlink";
-      }
-    ];
-  };
+  persist.cache.symlinkDirectories = [ ".cache/fontconfig" ];
 
 }

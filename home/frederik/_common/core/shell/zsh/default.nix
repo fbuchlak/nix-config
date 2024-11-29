@@ -1,9 +1,4 @@
-{
-  my,
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, config, ... }:
 {
 
   programs.zsh = {
@@ -124,13 +119,6 @@
     '';
   };
 
-  home.persistence = {
-    "${my.vars.persistence.home.mnt}${config.home.homeDirectory}".directories = [
-      {
-        directory = ".local/share/zsh";
-        method = "symlink";
-      }
-    ];
-  };
+  persist.home.symlinkDirectories = [ ".local/share/zsh" ];
 
 }

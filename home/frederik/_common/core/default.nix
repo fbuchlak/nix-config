@@ -4,17 +4,20 @@
   pkgs,
   config,
   inputs,
+  outputs,
   ...
 }:
 let
   inherit (my.vars) persistence;
 in
 {
-  imports = lib.flatten [
-    inputs.impermanence.nixosModules.home-manager.impermanence
-    inputs.catppuccin.homeManagerModules.catppuccin
-    (my.lib.files.nix ./.)
-  ];
+  imports =
+    lib.flatten [
+      inputs.impermanence.nixosModules.home-manager.impermanence
+      inputs.catppuccin.homeManagerModules.catppuccin
+      (my.lib.files.nix ./.)
+    ]
+    ++ (builtins.attrValues outputs.homeManagerModules);
 
   catppuccin.flavor = "mocha";
 
@@ -33,6 +36,8 @@ in
         ripgrep
         ;
     };
+
+    # TODO: use persist module
 
     persistence = {
 

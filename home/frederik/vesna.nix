@@ -1,6 +1,7 @@
-{ my, config, ... }:
+{ ... }:
 {
   imports = [
+
     _common/core
 
     _common/optional/desktops/xserver
@@ -13,13 +14,6 @@
 
   ];
 
-  home.persistence = {
-    "${my.vars.persistence.home.mnt}${config.home.homeDirectory}".directories = [
-      {
-        directory = ".aws";
-        method = "symlink";
-      }
-    ];
-  };
+  persist.home.symlinkDirectories = [ ".aws" ];
 
 }

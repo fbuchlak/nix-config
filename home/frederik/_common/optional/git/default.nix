@@ -1,10 +1,4 @@
-{
-  my,
-  lib,
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, ... }:
 {
 
   home.shellAliases = {
@@ -17,7 +11,7 @@
       options = {
         diff-so-fancy = true;
         line-numbers = true;
-        true-color = lib.mkDefault "always";
+        true-color = "always";
       };
       catppuccin.enable = true;
     };
@@ -31,14 +25,8 @@
     catppuccin.enable = true;
     settings.git.paging.pager = "${pkgs.delta}/bin/delta --paging=never";
   };
+  programs.bat.catppuccin.enable = true;
 
-  home.persistence = {
-    "${my.vars.persistence.home.mnt}${config.home.homeDirectory}".directories = [
-      {
-        directory = ".local/state/lazygit";
-        method = "symlink";
-      }
-    ];
-  };
+  persist.home.symlinkDirectories = [ ".local/state/lazygit" ];
 
 }

@@ -1,5 +1,4 @@
-{ my, config, ... }:
-{
+_: {
 
   programs.firefox = {
     enable = true;
@@ -54,19 +53,7 @@
     "x-scheme-handler/https" = [ "firefox.desktop" ];
   };
 
-  home.persistence = {
-    "${my.vars.persistence.home.mnt}${config.home.homeDirectory}".directories = [
-      {
-        directory = ".mozilla/firefox";
-        method = "symlink";
-      }
-    ];
-    "${my.vars.persistence.cache.mnt}${config.home.homeDirectory}".directories = [
-      {
-        directory = ".cache/mozilla/firefox";
-        method = "symlink";
-      }
-    ];
-  };
+  persist.home.symlinkDirectories = [ ".mozilla/firefox" ];
+  persist.cache.symlinkDirectories = [ ".cache/mozilla/firefox" ];
 
 }

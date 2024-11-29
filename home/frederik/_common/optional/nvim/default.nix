@@ -1,9 +1,4 @@
-{
-  my,
-  pkgs,
-  config,
-  ...
-}:
+{ pkgs, ... }:
 {
 
   # TODO: fetch config from https://github.com/fbuchlak/SimpleNvim
@@ -34,6 +29,9 @@
       php84Packages.composer
       nodejs
       nixfmt-rfc-style
+      nil
+      statix
+      deadnix
       stylua
       lua-language-server
       typos-lsp
@@ -41,53 +39,19 @@
   };
 
   # TODO: Split directory configuration
-  home.persistence = {
-    "${my.vars.persistence.home.mnt}${config.home.homeDirectory}".directories = [
-      {
-        directory = ".config/nvim";
-        method = "symlink";
-      }
-    ];
-    "${my.vars.persistence.data.mnt}${config.home.homeDirectory}".directories = [
-      {
-        directory = ".local/share/nvim";
-        method = "symlink";
-      }
-      {
-        directory = ".local/state/nvim";
-        method = "symlink";
-      }
-    ];
-    "${my.vars.persistence.cache.mnt}${config.home.homeDirectory}".directories = [
-      {
-        directory = ".cache/nvim";
-        method = "symlink";
-      }
-      {
-        directory = ".cache/phpactor";
-        method = "symlink";
-      }
-      {
-        directory = ".cache/lua-language-server";
-        method = "symlink";
-      }
-      {
-        directory = ".cache/composer";
-        method = "symlink";
-      }
-      {
-        directory = ".cache/pip";
-        method = "symlink";
-      }
-      {
-        directory = ".cache/go-build";
-        method = "symlink";
-      }
-      {
-        directory = ".cargo"; # WARN: This isn't cache only
-        method = "symlink";
-      }
-    ];
-  };
+  persist.home.symlinkDirectories = [ ".config/nvim" ];
+  persist.data.symlinkDirectories = [
+    ".local/share/nvim"
+    ".local/state/nvim"
+  ];
+  persist.cache.symlinkDirectories = [
+    ".cache/nvim"
+    ".cache/phpactor"
+    ".cache/lua-language-server"
+    ".cache/composer"
+    ".cache/pip"
+    ".cache/go-build"
+    ".cargo" # WARN: This isn't cache only
+  ];
 
 }

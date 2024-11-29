@@ -7,17 +7,13 @@
   outputs,
   ...
 }:
-let
-  inherit (my.vars) persistence;
-in
 {
-  imports =
-    lib.flatten [
-      inputs.impermanence.nixosModules.home-manager.impermanence
-      inputs.catppuccin.homeManagerModules.catppuccin
-      (my.lib.files.nix ./.)
-    ]
-    ++ (builtins.attrValues outputs.homeManagerModules);
+  imports = lib.flatten [
+    (builtins.attrValues outputs.homeManagerModules)
+    inputs.impermanence.nixosModules.home-manager.impermanence
+    inputs.catppuccin.homeManagerModules.catppuccin
+    (my.lib.files.nix ./.)
+  ];
 
   catppuccin.flavor = "mocha";
 
@@ -36,58 +32,19 @@ in
         ripgrep
         ;
     };
-
-    # TODO: use persist module
-
-    persistence = {
-
-      "${persistence.home.mnt}${config.home.homeDirectory}" = {
-        allowOther = true;
-        directories = [
-          {
-            directory = ".ssh";
-            method = "symlink";
-          }
-          {
-            directory = "projects";
-            method = "symlink";
-          }
-          {
-            directory = "nix-config";
-            method = "symlink";
-          }
-        ];
-      };
-
-      "${persistence.data.mnt}${config.home.homeDirectory}" = {
-        allowOther = true;
-        directories = [
-          {
-            directory = "documents";
-            method = "symlink";
-          }
-          {
-            directory = "downloads";
-            method = "symlink";
-          }
-          {
-            directory = "media";
-            method = "symlink";
-          }
-        ];
-        files = [
-          ".bash_history"
-        ];
-      };
-
-      "${my.vars.persistence.system.mnt}${config.home.homeDirectory}".allowOther = true;
-      "${my.vars.persistence.cache.mnt}${config.home.homeDirectory}".allowOther = true;
-      "${my.vars.persistence.logs.mnt}${config.home.homeDirectory}".allowOther = true;
-      "${my.vars.persistence.virt.mnt}${config.home.homeDirectory}".allowOther = true;
-
-    };
-
   };
+
+  persist.home.symlinkDirectories = [
+    ".ssh"
+    "projects"
+    "nix-config"
+  ];
+  persist.data.files = [ ".bash_history" ];
+  persist.data.symlinkDirectories = [
+    "documents"
+    "downloads"
+    "media"
+  ];
 
   xdg = {
     enable = true;

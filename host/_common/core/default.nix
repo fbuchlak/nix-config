@@ -10,6 +10,7 @@
 
   imports = lib.flatten [
     (my.lib.files.nix ./.)
+    (builtins.attrValues outputs.nixosModules)
     inputs.home-manager.nixosModules.home-manager
   ];
 

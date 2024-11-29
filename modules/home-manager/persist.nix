@@ -6,6 +6,8 @@
 }:
 let
   inherit (lib) types mkOption mapAttrs;
+  inherit (my.vars) persistence;
+
   cfg = config.persist;
   home = config.home.homeDirectory;
   relativePaths = paths: builtins.map (file: lib.removePrefix "${home}/" file) paths;
@@ -45,12 +47,12 @@ let
 in
 {
 
-  options.persist = mapAttrs (name: _: mkSubvolumePersistOption name) my.vars.persistence;
+  options.persist = mapAttrs (name: _: mkSubvolumePersistOption name) persistence;
 
   config = {
     home.persistence = lib.mapAttrs' (
       name: value:
-      lib.nameValuePair "${my.vars.persistence.${name}.mnt}${home}" {
+      lib.nameValuePair "${persistence.${name}.mnt}${home}" {
         inherit (value) allowOther;
         files = relativePaths value.files;
         directories =

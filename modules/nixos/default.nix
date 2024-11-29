@@ -1,3 +1,3 @@
 {
-  # module = import ./module.nix;
+  persist = import ./persist.nix;
 }

@@ -7,7 +7,6 @@
 }:
 {
   imports = lib.flatten [
-
     ./temporary.nix
     ./hardware-configuration.nix
 
@@ -45,9 +44,7 @@
   boot.tmp.cleanOnBoot = true;
 
   # Machine specific persistence
-  environment.persistence."${my.vars.persistence.system.mnt}" = {
-    directories = [ "/etc/NetworkManager/system-connections" ];
-  };
+  persist.system.directories = [ "/etc/NetworkManager/system-connections" ];
 
   # Networking
   networking = {

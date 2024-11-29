@@ -1,6 +1,7 @@
 {
   my,
   lib,
+  pkgs,
   config,
   ...
 }:
@@ -28,6 +29,7 @@
   programs.lazygit = {
     enable = true;
     catppuccin.enable = true;
+    settings.git.paging.pager = "${pkgs.delta}/bin/delta --paging=never";
   };
 
   home.persistence = {

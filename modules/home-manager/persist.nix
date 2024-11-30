@@ -27,7 +27,7 @@ let
       description = ''
         A list of files in home directory which
         should be persisted in "${subvolume}" subvolume
-        from path "${path}".
+        to path "${path}".
       '';
     };
 
@@ -42,7 +42,7 @@ let
       description = ''
         A list of directories in home directory which
         should be persisted in "${subvolume}" subvolume
-        with ${type} to ${path}.
+        with "${type}" to path "${path}".
       '';
     };
 
@@ -61,10 +61,11 @@ let
   };
 
   mapByPathsConfig =
+    with lib;
     value:
-    lib.flatten (
-      lib.attrValues (
-        lib.mapAttrs (
+    flatten (
+      attrValues (
+        mapAttrs (
           key: path: (builtins.map (p: (xdg.relativePath config "${path}/${p}")) value.${key})
         ) pathsConfig
       )

@@ -54,6 +54,10 @@ _: {
   };
 
   persist.home.directories.home = [ ".mozilla/firefox" ];
-  persist.cache.directories.cache = [ "mozilla/firefox" ];
+  persist.cache.directories.cache = [
+    "mozilla/firefox"
+    "mesa_shader_cache"
+    "mesa_shader_cache_db"
+  ];
 
 }

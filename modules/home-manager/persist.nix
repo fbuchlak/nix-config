@@ -83,14 +83,14 @@ in
         inherit (value) allowOther;
         files = mapByPathsConfig value.files;
         directories =
-          (builtins.map (directory: {
-            inherit directory;
-            method = "bindfs";
-          }) (mapByPathsConfig value.directoriesBindfs))
-          ++ (builtins.map (directory: {
-            inherit directory;
-            method = "symlink";
-          }) (mapByPathsConfig value.directories));
+          let
+            directories =
+              method: directories:
+              (builtins.map (directory: {
+                inherit directory method;
+              }) (mapByPathsConfig directories));
+          in
+          (directories "symlink" value.directories) ++ (directories "bindfs" value.directoriesBindfs);
       }
     ) cfg;
   };

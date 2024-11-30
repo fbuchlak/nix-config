@@ -28,14 +28,21 @@
       flatten (
         builtins.map (
           user:
-          (builtins.map (mountpoint: ''
-            if [ ! -d "${mountpoint}${user.home}" ] ; then
-                echo "Creating '${mountpoint}${user.home}' directory"
-                mkdir -p "${mountpoint}${user.home}"
-                echo "Setting owner of '${mountpoint}${user.home}' to '${user.name}:${user.group}'"
-                chown -R "${user.name}:${user.group}" "${mountpoint}${user.home}"
-            fi
-          '') (builtins.map (subvolume: subvolume.mnt) (attrValues my.vars.persistence)))
+          (builtins.map (
+            mountpoint:
+            let
+              home = "${mountpoint}${user.home}";
+              owner = "${user.name}:${user.group}";
+            in
+            ''
+              if [ ! -d "${home}" ] ; then
+                  echo "Creating '${home}' directory"
+                  mkdir -p "${home}"
+                  echo "Setting owner of '${home}' to '${owner}'"
+                  chown -R "${owner}" "${home}"
+              fi
+            ''
+          ) (builtins.map (subvolume: subvolume.mnt) (attrValues my.vars.persistence)))
         ) (builtins.filter (user: user.isNormalUser) (attrValues config.users.users))
       )
     );

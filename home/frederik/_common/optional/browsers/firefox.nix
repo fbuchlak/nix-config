@@ -53,7 +53,7 @@ _: {
     "x-scheme-handler/https" = [ "firefox.desktop" ];
   };
 
-  persist.home.symlinkDirectories = [ ".mozilla/firefox" ];
-  persist.cache.symlinkDirectories = [ ".cache/mozilla/firefox" ];
+  persist.home.directories.home = [ ".mozilla/firefox" ];
+  persist.cache.directories.cache = [ "mozilla/firefox" ];
 
 }

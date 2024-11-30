@@ -26,7 +26,6 @@
     settings.git.paging.pager = "${pkgs.delta}/bin/delta --paging=never";
   };
   programs.bat.catppuccin.enable = true;
-
-  persist.home.symlinkDirectories = [ ".local/state/lazygit" ];
+  persist.home.directories.state = [ "lazygit" ];
 
 }

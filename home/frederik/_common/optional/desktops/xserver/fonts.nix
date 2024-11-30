@@ -27,6 +27,6 @@
     };
   };
 
-  persist.cache.symlinkDirectories = [ ".cache/fontconfig" ];
+  persist.cache.directories.cache = [ "fontconfig" ];
 
 }

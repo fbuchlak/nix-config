@@ -34,13 +34,13 @@
     };
   };
 
-  persist.home.symlinkDirectories = [
+  persist.home.directories.home = [
     ".ssh"
     "projects"
     "nix-config"
   ];
-  persist.data.files = [ ".bash_history" ];
-  persist.data.symlinkDirectories = [
+  persist.home.files.home = [ ".bash_history" ];
+  persist.data.directories.home = [
     "documents"
     "downloads"
     "media"

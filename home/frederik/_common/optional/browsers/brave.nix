@@ -5,7 +5,7 @@ _: {
     commandLineArgs = [ "--no-default-browser-check" ];
   };
 
-  persist.home.symlinkDirectories = [ ".config/BraveSoftware/Brave-Browser" ];
-  persist.cache.symlinkDirectories = [ ".cache/BraveSoftware/Brave-Browser" ];
+  persist.home.directories.config = [ "BraveSoftware/Brave-Browser" ];
+  persist.cache.directories.cache = [ "BraveSoftware/Brave-Browser" ];
 
 }

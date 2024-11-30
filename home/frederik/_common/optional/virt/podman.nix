@@ -1,6 +1,6 @@
 _: {
 
-  persist.cache.symlinkDirectories = [ ".cache/containers" ];
-  persist.virt.symlinkDirectories = [ ".local/share/containers" ];
+  persist.virt.directories.data = [ "containers" ];
+  persist.cache.directories.cache = [ "containers" ];
 
 }

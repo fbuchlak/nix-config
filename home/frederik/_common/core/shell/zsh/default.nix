@@ -119,6 +119,6 @@
     '';
   };
 
-  persist.home.symlinkDirectories = [ ".local/share/zsh" ];
+  persist.home.directories.data = [ "zsh" ];
 
 }

@@ -39,19 +39,18 @@
   };
 
   # TODO: Split directory configuration
-  persist.home.symlinkDirectories = [ ".config/nvim" ];
-  persist.data.symlinkDirectories = [
-    ".local/share/nvim"
-    ".local/state/nvim"
-  ];
-  persist.cache.symlinkDirectories = [
-    ".cache/nvim"
-    ".cache/phpactor"
-    ".cache/lua-language-server"
-    ".cache/composer"
-    ".cache/pip"
-    ".cache/go-build"
-    ".cargo" # WARN: This isn't cache only
+  persist.home.directories.config = [ "nvim" ];
+  persist.home.directories.state = [ "nvim" ];
+  persist.home.directories.data = [ "nvim" ];
+
+  persist.cache.directories.home = [ ".cargo" ]; # WARN: This isn't cache only
+  persist.cache.directories.cache = [
+    "nvim"
+    "phpactor"
+    "lua-language-server"
+    "composer"
+    "pip"
+    "go-build"
   ];
 
 }

@@ -6,64 +6,90 @@
 }:
 let
   inherit (lib) types mkOption mapAttrs;
+  inherit (my.lib) xdg;
   inherit (my.vars) persistence;
 
   cfg = config.persist;
-  home = config.home.homeDirectory;
-  relativePaths = paths: builtins.map (file: lib.removePrefix "${home}/" file) paths;
 
-  mkSubvolumePersistOption = name: {
-    allowOther = mkOption {
-      type = types.bool;
-      default = true;
-    };
-    files = mkOption {
+  pathsConfig = {
+    config = xdg.configPath config "";
+    cache = xdg.cachePath config "";
+    state = xdg.statePath config "";
+    data = xdg.dataPath config "";
+    home = xdg.homePath config "";
+  };
+
+  mkFileOption =
+    subvolume: path:
+    mkOption {
       type = with types; listOf str;
       default = [ ];
       description = ''
         A list of files in home directory which
-        should be persisted in "${name}" subvolume.
+        should be persisted in "${subvolume}" subvolume
+        from path "${path}".
       '';
     };
-    bindfsDirectories = mkOption {
+
+  mkFileOptions =
+    subvolume: lib.mapAttrsRecursive (_: path: (mkFileOption subvolume path)) pathsConfig;
+
+  mkDirectoryOption =
+    subvolume: type: path:
+    mkOption {
       type = with types; listOf str;
       default = [ ];
       description = ''
         A list of directories in home directory which
-        should be persisted in "${name}" subvolume
-        with bindfs mount.
+        should be persisted in "${subvolume}" subvolume
+        with ${type} to ${path}.
       '';
     };
-    symlinkDirectories = mkOption {
-      type = with types; listOf str;
-      default = [ ];
-      description = ''
-        A list of directories in home directory which
-        should be persisted in "${name}" subvolume
-        with symlink.
-      '';
+
+  mkDirectoryOptions =
+    subvolume: type:
+    lib.mapAttrsRecursive (_: path: (mkDirectoryOption subvolume type path)) pathsConfig;
+
+  mkSubvolumePersistOption = subvolume: {
+    allowOther = mkOption {
+      type = types.bool;
+      default = true;
     };
+    files = mkFileOptions subvolume;
+    directories = mkDirectoryOptions subvolume "symlink";
+    directoriesBindfs = mkDirectoryOptions subvolume "bindfs";
   };
+
+  mapByPathsConfig =
+    value:
+    lib.flatten (
+      lib.attrValues (
+        lib.mapAttrs (
+          key: path: (builtins.map (p: (xdg.relativePath config "${path}/${p}")) value.${key})
+        ) pathsConfig
+      )
+    );
 in
 {
 
   options.persist = mapAttrs (name: _: mkSubvolumePersistOption name) persistence;
 
   config = {
+    xdg.enable = lib.mkForce true;
     home.persistence = lib.mapAttrs' (
       name: value:
-      lib.nameValuePair "${persistence.${name}.mnt}${home}" {
+      lib.nameValuePair "${persistence.${name}.mnt}${(xdg.homePath config "")}" {
         inherit (value) allowOther;
-        files = relativePaths value.files;
+        files = mapByPathsConfig value.files;
         directories =
-          builtins.map (directory: {
+          (builtins.map (directory: {
             inherit directory;
             method = "bindfs";
-          }) (relativePaths value.bindfsDirectories)
-          ++ builtins.map (directory: {
+          }) (mapByPathsConfig value.directoriesBindfs))
+          ++ (builtins.map (directory: {
             inherit directory;
             method = "symlink";
-          }) (relativePaths value.symlinkDirectories);
+          }) (mapByPathsConfig value.directories));
       }
     ) cfg;
   };

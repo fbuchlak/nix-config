@@ -25,6 +25,9 @@ in
       enable = true;
       package = pkgs.vesktop;
     };
+    config = {
+      themeLinks = [ "https://catppuccin.github.io/discord/dist/catppuccin-mocha.theme.css" ];
+    };
   };
 
   # https://github.com/KaylorBen/nixcord/issues/24

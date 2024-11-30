@@ -1,13 +1,11 @@
-{ pkgs, ... }:
+{ my, lib, ... }:
 {
 
-  home.shellAliases = {
-    lg = "lazygit";
-  };
+  imports = my.lib.files.nix ./.;
 
   programs.git = {
     delta = {
-      enable = true;
+      enable = lib.mkDefault true;
       options = {
         diff-so-fancy = true;
         line-numbers = true;
@@ -19,13 +17,5 @@
       st = "status";
     };
   };
-
-  programs.lazygit = {
-    enable = true;
-    catppuccin.enable = true;
-    settings.git.paging.pager = "${pkgs.delta}/bin/delta --paging=never";
-  };
-  programs.bat.catppuccin.enable = true;
-  persist.home.directories.state = [ "lazygit" ];
 
 }

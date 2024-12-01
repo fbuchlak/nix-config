@@ -24,4 +24,6 @@ in
     ];
   };
 
+  persist.cache.directories.cache = [ "bat" ];
+
 }

@@ -1,9 +1,17 @@
-{ pkgs, config, ... }:
+{
+  my,
+  pkgs,
+  config,
+  ...
+}:
+let
+  inherit (my.lib) xdg;
+in
 {
 
   programs.zsh = {
 
-    dotDir = ".config/zsh";
+    dotDir = xdg.configPathRel config "zsh";
     enable = true;
     enableCompletion = true;
 
@@ -16,7 +24,7 @@
     };
 
     history = {
-      path = "${config.home.homeDirectory}/.local/share/zsh/history";
+      path = xdg.dataPath config "zsh/history";
       size = 50000;
       share = true;
       append = true;

@@ -23,6 +23,6 @@ in
   cachePathRel = config: path: (relativePath config (cachePath config path));
   statePathRel = config: path: (relativePath config (statePath config path));
   dataPathRel = config: path: (relativePath config (dataPath config path));
-  homePathRel = config: path: (relativePath config (dataPath config path));
+  homePathRel = config: path: (relativePath config (homePath config path));
 
 }

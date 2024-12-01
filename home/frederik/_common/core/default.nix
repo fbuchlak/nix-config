@@ -7,6 +7,13 @@
   outputs,
   ...
 }:
+let
+  inherit (my.lib) xdg;
+  xdgUnusedDirsPathRel = xdg.statePathRel config "xdg-unused-dirs";
+  documentsPathRel = xdg.homePathRel config "documents";
+  downloadPathRel = xdg.homePathRel config "downloads";
+  mediaPathRel = xdg.homePathRel config "media";
+in
 {
   imports = lib.flatten [
     (builtins.attrValues outputs.homeManagerModules)
@@ -21,7 +28,7 @@
     stateVersion = lib.mkDefault "24.05";
 
     username = lib.mkDefault "frederik";
-    homeDirectory = lib.mkDefault "/home/frederik";
+    homeDirectory = lib.mkDefault "/home/${config.home.username}";
     preferXdgDirectories = true;
 
     packages = builtins.attrValues {
@@ -35,15 +42,15 @@
   };
 
   persist.home.directories.home = [
-    ".ssh"
-    "projects"
-    "nix-config"
+    (xdg.homePathRel config ".ssh")
+    (xdg.homePathRel config "projects")
+    (xdg.homePathRel config "nix-config")
   ];
-  persist.home.files.home = [ ".bash_history" ];
+
   persist.data.directories.home = [
-    "documents"
-    "downloads"
-    "media"
+    documentsPathRel
+    downloadPathRel
+    mediaPathRel
   ];
 
   xdg = {
@@ -52,16 +59,16 @@
       enable = true;
       createDirectories = true;
       # Data
-      download = "${config.home.homeDirectory}/downloads";
-      documents = "${config.home.homeDirectory}/documents";
+      download = xdg.homePath config downloadPathRel;
+      documents = xdg.homePath config documentsPathRel;
       # Media
-      music = "${config.home.homeDirectory}/media/audio";
-      videos = "${config.home.homeDirectory}/media/video";
-      pictures = "${config.home.homeDirectory}/media/images";
-      # Unused
-      desktop = "${config.home.homeDirectory}/.xdgtmp/desktop";
-      templates = "${config.home.homeDirectory}/.xdgtmp/templates";
-      publicShare = "${config.home.homeDirectory}/.xdgtmp/public";
+      music = xdg.homePath config "${mediaPathRel}/audio";
+      videos = xdg.homePath config "${mediaPathRel}/video";
+      pictures = xdg.homePath config "${mediaPathRel}/images";
+      # # Unused
+      desktop = xdg.homePath config "${xdgUnusedDirsPathRel}/desktop";
+      templates = xdg.homePath config "${xdgUnusedDirsPathRel}/templates";
+      publicShare = xdg.homePath config "${xdgUnusedDirsPathRel}/public";
     };
   };
 

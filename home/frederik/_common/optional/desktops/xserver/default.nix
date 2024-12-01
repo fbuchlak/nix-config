@@ -1,7 +1,12 @@
-{ my, pkgs, ... }:
+{
+  my,
+  pkgs,
+  config,
+  ...
+}:
 let
-  inherit (my.lib.files) patches;
-  xresourcesPath = ".config/x11/xresources";
+  inherit (my.lib) xdg files;
+  inherit (files) patches;
 in
 {
 
@@ -24,7 +29,6 @@ in
     })
   ];
 
-  home.file."${xresourcesPath}".source = ./xresources;
   home.packages = with pkgs; [
 
     st
@@ -44,7 +48,10 @@ in
     xclip = "xclip -sel clip";
   };
 
-  home.file.".xinitrc".source = pkgs.writeShellScript ".xinitrc" ''
+  home.sessionVariables.XINITRC = xdg.configPath config "x11/xinitrc";
+  home.sessionVariables.XAUTHORITY = "\${XDG_RUNTIME_DIR:-\"/run/user/$(id -u)\"}/Xauthority";
+  xdg.configFile."x11/xresources".source = ./xresources;
+  xdg.configFile."x11/xinitrc".source = pkgs.writeShellScript "xinitrc" ''
     export _JAVA_AWT_WM_NONREPARENTING=1
 
     runcmd () {
@@ -56,7 +63,7 @@ in
     }
 
     ${pkgs.xorg.xset}/bin/xset r rate 400 75
-    ${pkgs.xorg.xrdb}/bin/xrdb -merge ${xresourcesPath}
+    ${pkgs.xorg.xrdb}/bin/xrdb -merge ${xdg.configPath config "x11/xresources"}
     ${pkgs.xorg.xrandr}/bin/xrandr --dpi 96
     ${pkgs.xwallpaper}/bin/xwallpaper --zoom ${my.lib.config.path "blob/wallpaper/blue-and-white-sky-with-stars.jpg"} || true
 

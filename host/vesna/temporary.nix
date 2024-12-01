@@ -4,7 +4,6 @@
   # TODO: Split configuration
 
   environment.systemPackages = with pkgs; [
-    gnumake
     openvpn
     awscli2
     postgresql

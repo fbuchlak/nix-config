@@ -40,9 +40,6 @@ in
       wget
       curl
       rsync
-      fd
-      fzf
-      ripgrep
     ];
   };
 

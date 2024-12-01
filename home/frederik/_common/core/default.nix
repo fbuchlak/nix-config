@@ -33,13 +33,38 @@ in
 
     packages = builtins.attrValues {
       inherit (pkgs)
+        curl
+        wget
+        gnumake
+
+        bc
         jq
+        yq
+
         fd
         fzf
         ripgrep
         ;
     };
   };
+
+  home.shellAliases =
+    with builtins;
+    listToAttrs (
+      map
+        (value: {
+          name = value;
+          value = "sudo ${value}";
+        })
+        [
+          "mount"
+          "umount"
+          "poweroff"
+          "reboot"
+          "shutdown"
+          "showkey"
+        ]
+    );
 
   persist.home.directories.home = [
     (xdg.homePathRel config ".ssh")

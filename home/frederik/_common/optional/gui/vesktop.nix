@@ -40,25 +40,23 @@ in
     splashBackground = "oklab(0.321044 -0.000249296 -0.00927344)";
   };
 
-  home.activation = {
-    # INFO: Create vesktop initial state to ignore "firstLaunch" configuration.
-    # After that let vesktop manage it's own state.
-    # See https://github.com/Vencord/Vesktop/issues/220
-    create-vesktop-initial-state = lib.mkIf vesktopEnabled (
-      let
-        vesktopConfigDir = "${persistentHome}/${lib.removePrefix "/" (xdg.configPath config "vesktop")}";
-        vesktopStatePersistentPath = "${persistentHome}/${lib.removePrefix "/" (xdg.configPath config "vesktop/state.json")}";
-      in
-      lib.hm.dag.entryBefore [ "writeBoundary" ] ''
-        if [ ! -f "${vesktopStatePersistentPath}" ]; then
-            if [ ! -d "${vesktopConfigDir}" ]; then
-                mkdir -p "${vesktopConfigDir}"
-            fi
-            echo '{"firstLaunch":false}' > "${vesktopStatePersistentPath}"
-        fi
-      ''
-    );
-  };
+  # INFO: Create vesktop initial state to ignore "firstLaunch" configuration.
+  # After that let vesktop manage it's own state.
+  # See https://github.com/Vencord/Vesktop/issues/220
+  home.activation.create-vesktop-initial-state = lib.mkIf vesktopEnabled (
+    let
+      vesktopConfigDir = "${persistentHome}/${lib.removePrefix "/" (xdg.configPath config "vesktop")}";
+      vesktopStatePersistentPath = "${persistentHome}/${lib.removePrefix "/" (xdg.configPath config "vesktop/state.json")}";
+    in
+    lib.hm.dag.entryBefore [ "writeBoundary" ] ''
+      if [ ! -f "${vesktopStatePersistentPath}" ]; then
+          if [ ! -d "${vesktopConfigDir}" ]; then
+              mkdir -p "${vesktopConfigDir}"
+          fi
+          echo '{"firstLaunch":false}' > "${vesktopStatePersistentPath}"
+      fi
+    ''
+  );
 
   persist.home.files.config = [ "vesktop/state.json" ];
   persist.home.directories.config = [ "vesktop/sessionData" ];

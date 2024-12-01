@@ -76,6 +76,7 @@ in
   options.persist = mapAttrs (name: _: mkSubvolumePersistOption name) persistence;
 
   config = {
+
     xdg.enable = lib.mkForce true;
     home.persistence = lib.mapAttrs' (
       name: value:
@@ -93,6 +94,40 @@ in
           (directories "symlink" value.directories) ++ (directories "bindfs" value.directoriesBindfs);
       }
     ) cfg;
+
+    home.activation.create-user-persistent-symlink-directories =
+      with lib;
+      hm.dag.entryBefore [ "checkLinkTargets" ] (
+        concatLines (
+          builtins.map
+            (value: ''
+              if [ ! -d "${value.persistentPath}" ] && [ ! -d "${value.homePath}" ] ; then
+                  mkdir -p "${value.persistentPath}"
+              fi
+            '')
+            (
+              flatten (
+                builtins.map
+                  (
+                    value:
+                    (builtins.map (directory: {
+                      homePath = directory;
+                      persistentPath = "${value.mountpoint}/${directory}";
+                    }) value.directories)
+                  )
+                  (
+                    attrValues (
+                      mapAttrs (name: value: {
+                        mountpoint = "${persistence.${name}.mnt}${(xdg.homePath config "")}";
+                        directories = mapByPathsConfig value.directories;
+                      }) cfg
+                    )
+                  )
+              )
+            )
+        )
+      );
+
   };
 
 }

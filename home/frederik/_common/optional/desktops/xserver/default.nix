@@ -40,6 +40,10 @@ in
 
   ];
 
+  home.shellAliases = {
+    xclip = "xclip -sel clip";
+  };
+
   home.file.".xinitrc".source = pkgs.writeShellScript ".xinitrc" ''
     export _JAVA_AWT_WM_NONREPARENTING=1
 

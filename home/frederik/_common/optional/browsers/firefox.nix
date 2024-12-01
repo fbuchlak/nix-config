@@ -1,4 +1,5 @@
-_: {
+{ lib, ... }:
+{
 
   programs.firefox = {
     enable = true;
@@ -46,12 +47,27 @@ _: {
     };
   };
 
-  xdg.mimeApps.defaultApplications = {
-    "text/html" = [ "firefox.desktop" ];
-    "text/xml" = [ "firefox.desktop" ];
-    "x-scheme-handler/http" = [ "firefox.desktop" ];
-    "x-scheme-handler/https" = [ "firefox.desktop" ];
-  };
+  xdg.mimeApps.defaultApplications =
+    with lib;
+    let
+      firefox = "firefox.desktop";
+      firefoxBefore = mkBefore [ firefox ];
+      firefoxDefault = mkDefault [ firefox ];
+    in
+    {
+      "x-scheme-handler/http" = firefoxBefore;
+      "x-scheme-handler/https" = firefoxBefore;
+      "x-scheme-handler/about" = firefoxBefore;
+      "x-scheme-handler/unknown" = firefoxBefore;
+      "image/*" = firefoxDefault;
+      "application/pdf" = firefoxDefault;
+      "application/x-extension-htm" = firefoxDefault;
+      "application/x-extension-html" = firefoxDefault;
+      "application/x-extension-shtml" = firefoxDefault;
+      "application/xhtml+xml" = firefoxDefault;
+      "application/x-extension-xhtml" = firefoxDefault;
+      "application/x-extension-xht" = firefoxDefault;
+    };
 
   persist.home.directories.home = [ ".mozilla/firefox" ];
   persist.cache.directories.cache = [

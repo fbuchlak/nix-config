@@ -1,5 +1,6 @@
 {
   my,
+  lib,
   pkgs,
   config,
   ...
@@ -35,6 +36,7 @@ in
     dwm
     dmenu
     dwmblocks
+    xdg-terminal-exec
 
     arandr
     xclip
@@ -48,6 +50,7 @@ in
     xclip = "xclip -sel clip";
   };
 
+  home.sessionVariables.TERMINAL = lib.mkDefault "st";
   home.sessionVariables.XINITRC = xdg.configPath config "x11/xinitrc";
   home.sessionVariables.XAUTHORITY = "\${XDG_RUNTIME_DIR:-\"/run/user/$(id -u)\"}/Xauthority";
   xdg.configFile."x11/xresources".source = ./xresources;
@@ -74,5 +77,12 @@ in
 
     pidof -sx dwm >/dev/null || ${pkgs.dwm}/bin/dwm
   '';
+
+  xdg.desktopEntries.st = {
+    name = "St";
+    genericName = "St";
+    categories = [ "TerminalEmulator" ];
+    exec = "st";
+  };
 
 }

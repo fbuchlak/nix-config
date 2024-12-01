@@ -1,4 +1,5 @@
-_: {
+{ lib, ... }:
+{
 
   programs.zathura = {
     enable = true;
@@ -28,5 +29,7 @@ _: {
       "[presentation] ;" = "navigate next";
     };
   };
+
+  xdg.mimeApps.defaultApplications."application/pdf" = lib.mkBefore [ "org.pwmt.zathura.desktop" ];
 
 }

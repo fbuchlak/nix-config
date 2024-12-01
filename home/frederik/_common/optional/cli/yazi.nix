@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
 
   home.shellAliases = {
@@ -20,5 +20,7 @@
       };
     };
   };
+
+  xdg.mimeApps.defaultApplications."inode/directory" = lib.mkBefore "yazi.desktop";
 
 }

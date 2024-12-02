@@ -1,0 +1,31 @@
+--- a/config.h
++++ b/config.h
+5c5
+< #define DELIMITER "  "
+---
+> #define DELIMITER " | "
+14c14
+< #define LEADING_DELIMITER 0
+---
+> #define LEADING_DELIMITER 1
+17c17
+< #define TRAILING_DELIMITER 0
+---
+> #define TRAILING_DELIMITER 1
+21,30c21,25
+<     X("", "sb-mail", 600, 1)  \
+<     X("", "sb-music", 0, 2)   \
+<     X("", "sb-disk", 1800, 3) \
+<     X("", "sb-memory", 10, 4) \
+<     X("", "sb-loadavg", 5, 5) \
+<     X("", "sb-mic", 0, 6)     \
+<     X("", "sb-record", 0, 7)  \
+<     X("", "sb-volume", 0, 8)  \
+<     X("", "sb-battery", 5, 9) \
+<     X("", "sb-date", 1, 10)
+---
+>      X("", "dwmblocks-script-memory",          30,    1) \
+>      X("", "dwmblocks-script-alsa-input",      60,   10) \
+>      X("", "dwmblocks-script-alsa-output",     60,   11) \
+>      X("", "dwmblocks-script-date",            15,    2) \
+>      X("", "dwmblocks-script-battery",         90,    3)

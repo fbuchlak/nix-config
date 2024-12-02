@@ -11,7 +11,10 @@ let
 in
 {
 
-  imports = [ ./fonts.nix ];
+  imports = [
+    ./fonts.nix
+    ./dwmblocks.nix
+  ];
 
   nixpkgs.overlays = [
     (_final: prev: {

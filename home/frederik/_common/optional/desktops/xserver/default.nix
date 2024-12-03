@@ -58,6 +58,8 @@ in
   home.sessionVariables.XAUTHORITY = "\${XDG_RUNTIME_DIR:-\"/run/user/$(id -u)\"}/Xauthority";
   xdg.configFile."x11/xresources".source = ./xresources;
   xdg.configFile."x11/xinitrc".source = pkgs.writeShellScript "xinitrc" ''
+    source ${xdg.configPath config "x11/xsession"}
+
     export _JAVA_AWT_WM_NONREPARENTING=1
 
     runcmd () {
@@ -80,6 +82,17 @@ in
 
     pidof -sx dwm >/dev/null || ${pkgs.dwm}/bin/dwm
   '';
+
+  xsession = {
+    enable = true;
+    scriptPath = xdg.configPathRel config "x11/xsession";
+    profilePath = xdg.configPathRel config "x11/xprofile";
+  };
+
+  home.keyboard = {
+    layout = "us,sk";
+    options = [ "caps:backspace" ];
+  };
 
   xdg.desktopEntries.st = {
     name = "St";

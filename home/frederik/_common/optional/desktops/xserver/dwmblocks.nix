@@ -24,6 +24,19 @@ in
 
   home.packages = [
 
+    (pkgs.writeShellScriptBin "dwmblocks-script-cpu" ''
+      ${pkgs.sysstat}/bin/mpstat | awk '
+          $3 ~ /CPU/ {
+              for (i = 1; i <= NF; i++) {
+                  if ($i ~ /%idle/) field=i
+              }
+          }
+          $3 ~ /all/ {
+              printf(" %d%%\n", 100 - $field)
+          }
+      '
+    '')
+
     (pkgs.writeShellScriptBin "dwmblocks-script-memory" ''
       free -mh --si | grep '^Mem:' | awk '{printf "󰍛 %s\n",$3}'
     '')

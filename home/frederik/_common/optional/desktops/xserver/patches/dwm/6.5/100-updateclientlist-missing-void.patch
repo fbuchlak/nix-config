@@ -1,0 +1,12 @@
+Original: https://git.suckless.org/dwm/commit/5687f4696472ba6029bbba18e293e3e8b9e154ea.html
+
+diff --git a/dwm.c b/dwm.c
+@@ -2129,7 +2129,7 @@ updatebarpos(Monitor *m)
+ }
+ 
+ void
+-updateclientlist()
++updateclientlist(void)
+ {
+ 	Client *c;
+ 	Monitor *m;

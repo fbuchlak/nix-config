@@ -24,6 +24,16 @@ in
 
   home.packages = [
 
+    (pkgs.writeShellScriptBin "dwmblocks-script-xkblayout" ''
+      if [[ -n $BLOCK_BUTTON ]]; then
+          case $BLOCK_BUTTON in
+              3) ${pkgs.xkb-switch}/bin/xkb-switch -n ;;
+          esac
+      fi
+
+      ${pkgs.xkb-switch}/bin/xkb-switch
+    '')
+
     (pkgs.writeShellScriptBin "dwmblocks-script-cpu" ''
       ${pkgs.sysstat}/bin/mpstat | awk '
           $3 ~ /CPU/ {

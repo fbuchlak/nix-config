@@ -74,6 +74,7 @@ in
     ${pkgs.xorg.xrdb}/bin/xrdb -merge ${xdg.configPath config "x11/xresources"}
     ${pkgs.xorg.xrandr}/bin/xrandr --dpi 96
     ${pkgs.xwallpaper}/bin/xwallpaper --zoom ${my.lib.config.path "blob/wallpaper/blue-and-white-sky-with-stars.jpg"} || true
+    ${pkgs.xorg.setxkbmap}/bin/setxkbmap "us,sk" -option caps:backspace # TODO: This should be defined by home.keyboard
 
     runcmd ${pkgs.dunst}/bin/dunst
     runcmd ${pkgs.xcompmgr}/bin/xcompmgr
@@ -89,9 +90,15 @@ in
     profilePath = xdg.configPathRel config "x11/xprofile";
   };
 
-  home.keyboard = {
-    layout = "us,sk";
-    options = [ "caps:backspace" ];
+  services.sxhkd = {
+    enable = true;
+    keybindings = {
+      "super + space" = "${pkgs.xkb-switch}/bin/xkb-switch -n ; pkill -RTMIN+12 dwmblocks";
+      "@XF86AudioMute" = "${pkgs.alsa-utils}/bin/amixer -q set Master toggle ; ; pkill -RTMIN+11 dwmblocks";
+      "@XF86AudioLowerVolume" = "${pkgs.alsa-utils}/bin/amixer -q set Master 5%- unmute ; pkill -RTMIN+11 dwmblocks";
+      "@XF86AudioRaiseVolume" = "${pkgs.alsa-utils}/bin/amixer -q set Master 5%+ unmute ; pkill -RTMIN+11 dwmblocks";
+      "@XF86AudioMicMute" = "${pkgs.alsa-utils}/bin/amixer -q set Capture toggle ; pkill -RTMIN+10 dwmblocks";
+    };
   };
 
   xdg.desktopEntries.st = {

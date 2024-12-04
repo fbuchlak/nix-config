@@ -6,6 +6,7 @@
   ...
 }:
 {
+
   imports = lib.flatten [
     ./temporary.nix
     ./hardware-configuration.nix
@@ -51,6 +52,14 @@
     hostName = "vesna";
     networkmanager.enable = true;
     enableIPv6 = false;
+  };
+
+  programs.light = {
+    enable = true;
+    brightnessKeys = {
+      enable = true;
+      step = 5;
+    };
   };
 
   system.stateVersion = "24.05";

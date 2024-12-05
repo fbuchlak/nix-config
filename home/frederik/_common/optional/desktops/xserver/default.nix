@@ -63,7 +63,7 @@ in
     export _JAVA_AWT_WM_NONREPARENTING=1
 
     runcmd () {
-        cmd=$(echo $1 | awk '{print $1;}')
+        cmd=$(basename "$(echo $1 | awk '{print $1;}')")
         if command -v $cmd &> /dev/null; then
             killall $cmd &> /dev/null
             eval "$1" &> /dev/null &
@@ -93,12 +93,32 @@ in
   services.sxhkd = {
     enable = true;
     keybindings = {
+      "alt + q" = "${pkgs.dunst}/bin/dunstctl close";
+      "alt + w" = "${pkgs.dunst}/bin/dunstctl action";
+      "alt + e" = "${pkgs.dunst}/bin/dunstctl history-pop";
       "super + space" = "${pkgs.xkb-switch}/bin/xkb-switch -n ; pkill -RTMIN+12 dwmblocks";
       "@XF86AudioMute" = "${pkgs.alsa-utils}/bin/amixer -q set Master toggle ; ; pkill -RTMIN+11 dwmblocks";
       "@XF86AudioLowerVolume" = "${pkgs.alsa-utils}/bin/amixer -q set Master 5%- unmute ; pkill -RTMIN+11 dwmblocks";
       "@XF86AudioRaiseVolume" = "${pkgs.alsa-utils}/bin/amixer -q set Master 5%+ unmute ; pkill -RTMIN+11 dwmblocks";
       "@XF86AudioMicMute" = "${pkgs.alsa-utils}/bin/amixer -q set Capture toggle ; pkill -RTMIN+10 dwmblocks";
     };
+  };
+
+  services.dunst = {
+    enable = true;
+    catppuccin.enable = true;
+    settings = {
+      global = {
+        follow = "keyboard";
+        origin = "bottom-right";
+        font = "Monospace 12";
+      };
+    };
+  };
+  # INFO: It's not worth it to dunst run as a service.
+  #       There are several problems with xsession/dbus.
+  systemd.user.services.dunst = {
+    Service.ExecStart = lib.mkForce [ "echo 'dunst.service is disabled'" ];
   };
 
   xdg.desktopEntries.st = {

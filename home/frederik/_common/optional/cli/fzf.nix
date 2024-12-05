@@ -15,7 +15,6 @@ let
       (xdg.homePathRel config ".nix-defexpr")
       (xdg.homePathRel config ".nix-profile")
       (xdg.homePathRel config ".mozilla")
-      (xdg.homePathRel config ".cargo")
     ]
   );
 in

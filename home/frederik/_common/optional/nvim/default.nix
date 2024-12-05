@@ -43,14 +43,10 @@
   persist.home.directories.state = [ "nvim" ];
   persist.home.directories.data = [ "nvim" ];
 
-  persist.cache.directories.home = [ ".cargo" ]; # WARN: This isn't cache only
   persist.cache.directories.cache = [
     "nvim"
-    "phpactor"
-    "lua-language-server"
-    "composer"
     "pip"
-    "go-build"
+    "lua-language-server"
   ];
 
 }

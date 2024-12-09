@@ -22,6 +22,7 @@
       gcc
       cargo
       cmake
+      unzip
       gnumake
       python3
       tree-sitter

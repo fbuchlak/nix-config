@@ -64,8 +64,8 @@ in
 
     runcmd () {
         cmd=$(basename "$(echo $1 | awk '{print $1;}')")
-        if command -v $cmd &> /dev/null; then
-            killall $cmd &> /dev/null
+        ${pkgs.killall}/bin/killall "$cmd" &> /dev/null
+        if command -v "$1" &> /dev/null; then
             eval "$1" &> /dev/null &
         fi
     }

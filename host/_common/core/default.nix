@@ -35,7 +35,7 @@
     wget
     rsync
 
-    coreutils-full
+    coreutils
     findutils
     diffutils
 

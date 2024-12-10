@@ -36,15 +36,12 @@ in
   home.packages = with pkgs; [
 
     st
-    dwm
     dmenu
-    dwmblocks
     xdg-terminal-exec
 
     arandr
     xclip
     scrot
-    dunst
     libnotify
 
   ];

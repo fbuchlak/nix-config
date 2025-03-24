@@ -4,8 +4,8 @@
   home.packages = with pkgs; [
     liberation_ttf
     ubuntu_font_family
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     noto-fonts-color-emoji
+    nerd-fonts.jetbrains-mono
   ];
 
   fonts.fontconfig = {

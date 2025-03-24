@@ -3,7 +3,6 @@
 
   programs.zathura = {
     enable = true;
-    catppuccin.enable = true;
     options = {
       "selection-clipboard" = "clipboard";
     };
@@ -29,6 +28,7 @@
       "[presentation] ;" = "navigate next";
     };
   };
+  catppuccin.zathura.enable = true;
 
   xdg.mimeApps.defaultApplications."application/pdf" = lib.mkBefore [ "org.pwmt.zathura.desktop" ];
 

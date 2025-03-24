@@ -44,6 +44,9 @@ in
         fd
         fzf
         ripgrep
+
+        parallel
+        libxml2
         ;
     };
   };

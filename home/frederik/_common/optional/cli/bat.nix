@@ -16,13 +16,13 @@ in
 
   programs.bat = {
     enable = lib.mkDefault true;
-    catppuccin.enable = true;
     extraPackages = with pkgs.bat-extras; [
       batman
       batdiff
       batgrep
     ];
   };
+  catppuccin.bat.enable = true;
 
   persist.cache.directories.cache = [ "bat" ];
 

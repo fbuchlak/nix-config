@@ -24,6 +24,8 @@
     nixcord.url = "github:kaylorben/nixcord";
     catppuccin.url = "github:catppuccin/nix";
 
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
   };
 
   outputs =

@@ -11,7 +11,6 @@
     enable = true;
     enableZshIntegration = true;
     enableBashIntegration = true;
-    catppuccin.enable = true;
     settings = {
       manager = {
         show_hidden = true;
@@ -20,6 +19,7 @@
       };
     };
   };
+  catppuccin.yazi.enable = true;
 
   xdg.mimeApps.defaultApplications."inode/directory" = lib.mkBefore "yazi.desktop";
 

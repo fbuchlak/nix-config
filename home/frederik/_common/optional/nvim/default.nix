@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
 
   # TODO: fetch config from https://github.com/fbuchlak/SimpleNvim
@@ -10,6 +10,7 @@
   };
 
   programs.neovim = {
+    package = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
     enable = true;
     defaultEditor = true;
     viAlias = false;
@@ -36,6 +37,7 @@
       stylua
       lua-language-server
       typos-lsp
+      marksman
     ];
   };
 

@@ -11,11 +11,12 @@
         line-numbers = true;
         true-color = "always";
       };
-      catppuccin.enable = true;
     };
     aliases = {
       st = "status";
     };
   };
+
+  catppuccin.delta.enable = true;
 
 }

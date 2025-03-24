@@ -5,6 +5,7 @@
     php84
     php84Packages.composer
     phpactor
+    symfony-cli
   ];
 
   persist.home.directories.data = [ "composer" ];

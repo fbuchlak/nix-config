@@ -17,11 +17,11 @@ in
 
   programs.lazygit = {
     enable = lib.mkDefault true;
-    catppuccin.enable = true;
     settings.git.paging = lib.mkIf deltaEnabled {
       pager = "${pkgs.delta}/bin/delta --paging=never";
     };
   };
+  catppuccin.lazygit.enable = true;
 
   persist.home.directories.state = lib.mkIf enabled [ "lazygit" ];
 

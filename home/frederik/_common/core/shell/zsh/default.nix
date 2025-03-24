@@ -20,7 +20,6 @@ in
 
     syntaxHighlighting = {
       enable = true;
-      catppuccin.enable = true;
     };
 
     history = {
@@ -127,6 +126,8 @@ in
       zvm_after_lazy_keybindings_commands+=(__zshrc_custom_bindkeys)
     '';
   };
+
+  catppuccin.zsh-syntax-highlighting.enable = true;
 
   persist.home.directories.data = [ "zsh" ];
 

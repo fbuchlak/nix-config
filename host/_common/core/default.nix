@@ -20,8 +20,11 @@
   };
 
   programs.fuse.userAllowOther = true;
+
+  home-manager.useGlobalPkgs = lib.mkForce false;
   home-manager.extraSpecialArgs = {
     inherit my inputs outputs;
+    pkgs-system = pkgs;
   };
 
   programs.git.enable = true;

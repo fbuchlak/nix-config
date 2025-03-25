@@ -19,4 +19,10 @@
     };
   };
 
+  custom-firefox-addons = final: _prev: {
+    custom-firefox-addons = final.callPackage ./custom-firefox-addons {
+      inherit (inputs.firefox-addons.lib.${final.pkgs.system}) buildFirefoxXpiAddon;
+    };
+  };
+
 }

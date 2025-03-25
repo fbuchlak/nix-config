@@ -26,6 +26,9 @@
 
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    mozilla-addons-to-nix.url = "sourcehut:~rycee/mozilla-addons-to-nix";
+
   };
 
   outputs =
@@ -82,7 +85,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
           checks = self.checks.${system};
         in
-        import ./shell.nix { inherit checks pkgs; }
+        import ./shell.nix { inherit inputs checks pkgs; }
       );
 
       nixosConfigurations = {

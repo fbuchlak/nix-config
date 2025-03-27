@@ -37,6 +37,7 @@
       stylua
       lua-language-server
       typos-lsp
+      biome
       marksman
     ];
   };

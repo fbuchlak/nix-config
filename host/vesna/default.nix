@@ -47,6 +47,9 @@
   # Machine specific persistence
   persist.system.directories = [ "/etc/NetworkManager/system-connections" ];
 
+  # Enable dynamically linked executables
+  programs.nix-ld.enable = true;
+
   # Networking
   networking = {
     hostName = "vesna";

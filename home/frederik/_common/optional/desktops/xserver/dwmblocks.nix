@@ -52,18 +52,18 @@ in
     '')
 
     (pkgs.writeShellScriptBin "dwmblocks-script-alsa-input" ''
-      device="''${1:-Capture}"
+      device="''${1:-@DEFAULT_SOURCE@}"
 
       case $BLOCK_BUTTON in
-          1) ${pkgs.alsa-utils}/bin/amixer -q sset "$device" nocap ;;
-          3) if ${pkgs.alsa-utils}/bin/amixer sget "$device" | grep -q off ; then
-                  ${pkgs.alsa-utils}/bin/amixer -q sset "$device" cap
+          1) ${pkgs.wireplumber}/bin/wpctl set-mute "$device" 1 ;;
+          3) if ${pkgs.wireplumber}/bin/wpctl get-volume "$device" | grep -q MUTED ; then
+                  ${pkgs.wireplumber}/bin/wpctl set-mute "$device" 0
                   ${pkgs.libnotify}/bin/notify-send -u critical "Output [$device]" "Device started capturing"
               fi
               ;;
       esac
 
-      if ${pkgs.alsa-utils}/bin/amixer sget "$device" | grep -q off ; then
+      if ${pkgs.wireplumber}/bin/wpctl get-volume "$device" | grep -q MUTED ; then
           icon="󰍭";
       else
           icon="󰍬";

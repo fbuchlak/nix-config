@@ -36,6 +36,7 @@
   ];
 
   # Users
+  programs.slock.enable = true;
   home-manager.users.frederik = import (my.lib.config.path "home/frederik/vesna.nix");
 
   # System

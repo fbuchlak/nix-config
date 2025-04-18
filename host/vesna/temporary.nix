@@ -12,6 +12,10 @@
     php84Packages.composer
     nodejs
     yarn
+
+    zip
+    unzip
+    entr
   ];
 
 }

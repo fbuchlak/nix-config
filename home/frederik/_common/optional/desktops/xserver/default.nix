@@ -12,6 +12,7 @@ in
 {
 
   imports = [
+    ./cursor.nix
     ./fonts.nix
     ./dwmblocks.nix
   ];
@@ -26,10 +27,11 @@ in
         version = "6.5";
         patches = patches ./patches/dwm/6.5;
       };
-      st = prev.st.overrideAttrs {
+      st = prev.st.overrideAttrs (prev: {
         version = "0.9.2";
         patches = patches ./patches/st/0.9.2;
-      };
+        buildInputs = (prev.buildInputs or [ ]) ++ [ pkgs.xorg.libXcursor ];
+      });
     })
   ];
 
@@ -73,6 +75,7 @@ in
       ${xorg.xrdb}/bin/xrdb -merge ${xdg.configPath config "x11/xresources"}
       ${xorg.xrandr}/bin/xrandr --dpi 96
       ${xwallpaper}/bin/xwallpaper --zoom ${my.lib.config.path "blob/wallpaper/blue-and-white-sky-with-stars.jpg"}
+      ${xorg.xsetroot}/bin/xsetroot -cursor_name left_ptr
       ${xorg.setxkbmap}/bin/setxkbmap "us,sk" -option "caps:backspace" # TODO: This should be defined by home.keyboard
 
       runcmd ${dunst}/bin/dunst
@@ -122,7 +125,7 @@ in
     };
   };
   catppuccin.dunst.enable = true;
-  # INFO: It's not worth it to dunst run as a service.
+  # INFO: It's not worth it to run dunst as a service.
   #       There are several problems with xsession/dbus.
   systemd.user.services.dunst = {
     Service.ExecStart = lib.mkForce [ "${pkgs.coreutils}/bin/echo 'dunst.service is disabled'" ];

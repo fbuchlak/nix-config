@@ -16,6 +16,8 @@
     zip
     unzip
     entr
+
+    dos2unix
   ];
 
 }

@@ -1,5 +1,6 @@
 {
   my,
+  lib,
   pkgs,
   config,
   ...
@@ -42,89 +43,95 @@ in
       ];
     };
 
-    initExtraFirst = ''
-      source ${./p10k.zsh}
-      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-      if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
-          source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
-      fi
+    initContent =
+      let
+        zshInitExtraFirst = lib.mkOrder 500 ''
+          source ${./p10k.zsh}
+          source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
+          if [[ -r "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh" ]]; then
+              source "''${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-''${(%):-%n}.zsh"
+          fi
 
-      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
-      source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-      source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-    '';
+          source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+          source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+          source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+        '';
+        zshInitExtra = lib.mkOrder 1000 ''
+          stty start undef
+          stty stop undef
+          stty lnext undef
 
-    initExtra = ''
-      stty start undef
-      stty stop undef
-      stty lnext undef
+          setopt globdots interactive_comments
+          ZSH_AUTOSUGGEST_MANUAL_REBIND=true
 
-      setopt globdots interactive_comments
-      ZSH_AUTOSUGGEST_MANUAL_REBIND=true
-
-      function zvm_vi_yank () {
-          zvm_yank
-          printf %s "''${CUTBUFFER}" | ${pkgs.xclip}/bin/xclip -sel c
-          zvm_exit_visual_mode
-      }
-
-      __zshrc_redraw () {
-          local precmd
-          for precmd in $precmd_functions; do
-              $precmd
-          done
-          zle reset-prompt
-      }
-      zle -N __zshrc_redraw
-
-      function __zshrc_custom_bindkeys () {
-          bindkey '^ ' autosuggest-accept
-
-          function __zshrc_dirup () {
-              builtin cd ..
-              zle __zshrc_redraw
+          function zvm_vi_yank () {
+              zvm_yank
+              printf %s "''${CUTBUFFER}" | ${pkgs.xclip}/bin/xclip -sel c
+              zvm_exit_visual_mode
           }
-          zle -N __zshrc_dirup
-          bindkey '^O' __zshrc_dirup
 
-          function __zshrc_tmux () {
-              if [[ -z "$TMUX" ]]; then
-                  zle push-line
-                  BUFFER="${pkgs.tmux}/bin/tmux"
-                  zle accept-line
-              fi
+          __zshrc_redraw () {
+              local precmd
+              for precmd in $precmd_functions; do
+                  $precmd
+              done
+              zle reset-prompt
           }
-          zle -N __zshrc_tmux
-          bindkey '^B' __zshrc_tmux
+          zle -N __zshrc_redraw
 
-          function __zshrc_cdfzf_file () {
-              local selected_file
-              selected_file=$(${pkgs.fd}/bin/fd -L -t f --min-depth 1 | ${pkgs.fzf}/bin/fzf)
-              if [[ -n "$selected_file" ]]; then
-                  builtin cd "$(dirname "$selected_file")"
-              fi
-              zle __zshrc_redraw
+          function __zshrc_custom_bindkeys () {
+              bindkey '^ ' autosuggest-accept
+
+              function __zshrc_dirup () {
+                  builtin cd ..
+                  zle __zshrc_redraw
+              }
+              zle -N __zshrc_dirup
+              bindkey '^O' __zshrc_dirup
+
+              function __zshrc_tmux () {
+                  if [[ -z "$TMUX" ]]; then
+                      zle push-line
+                      BUFFER="${pkgs.tmux}/bin/tmux"
+                      zle accept-line
+                  fi
+              }
+              zle -N __zshrc_tmux
+              bindkey '^B' __zshrc_tmux
+
+              function __zshrc_cdfzf_file () {
+                  local selected_file
+                  selected_file=$(${pkgs.fd}/bin/fd -L -t f --min-depth 1 | ${pkgs.fzf}/bin/fzf)
+                  if [[ -n "$selected_file" ]]; then
+                      builtin cd "$(dirname "$selected_file")"
+                  fi
+                  zle __zshrc_redraw
+              }
+              zle -N __zshrc_cdfzf_file
+              bindkey '^F' __zshrc_cdfzf_file
+
+              function __zshrc_cdfzf_dir () {
+                  local selected_dir
+                  selected_dir=$(${pkgs.fd}/bin/fd -L -t d --min-depth 1 --max-depth=3 | ${pkgs.fzf}/bin/fzf)
+                  if [[ -n "$selected_dir" ]]; then
+                      builtin cd "$selected_dir"
+                  fi
+                  zle __zshrc_redraw
+              }
+              zle -N __zshrc_cdfzf_dir
+              bindkey '^G' __zshrc_cdfzf_dir
           }
-          zle -N __zshrc_cdfzf_file
-          bindkey '^F' __zshrc_cdfzf_file
-
-          function __zshrc_cdfzf_dir () {
-              local selected_dir
-              selected_dir=$(${pkgs.fd}/bin/fd -L -t d --min-depth 1 --max-depth=3 | ${pkgs.fzf}/bin/fzf)
-              if [[ -n "$selected_dir" ]]; then
-                  builtin cd "$selected_dir"
-              fi
-              zle __zshrc_redraw
-          }
-          zle -N __zshrc_cdfzf_dir
-          bindkey '^G' __zshrc_cdfzf_dir
-      }
 
 
-      __zshrc_custom_bindkeys
-      zvm_after_init_commands+=(__zshrc_custom_bindkeys)
-      zvm_after_lazy_keybindings_commands+=(__zshrc_custom_bindkeys)
-    '';
+          __zshrc_custom_bindkeys
+          zvm_after_init_commands+=(__zshrc_custom_bindkeys)
+          zvm_after_lazy_keybindings_commands+=(__zshrc_custom_bindkeys)
+        '';
+      in
+      lib.mkMerge [
+        zshInitExtraFirst
+        zshInitExtra
+      ];
   };
 
   catppuccin.zsh-syntax-highlighting.enable = true;

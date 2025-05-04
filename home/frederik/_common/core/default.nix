@@ -18,7 +18,7 @@ in
   imports = lib.flatten [
     (builtins.attrValues outputs.homeManagerModules)
     inputs.impermanence.nixosModules.home-manager.impermanence
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
     (my.lib.files.nix ./.)
   ];
 

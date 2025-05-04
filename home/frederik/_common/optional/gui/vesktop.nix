@@ -14,9 +14,7 @@ let
 in
 {
 
-  imports = [
-    inputs.nixcord.homeManagerModules.nixcord
-  ];
+  imports = [ inputs.nixcord.homeModules.nixcord ];
 
   programs.nixcord = {
     enable = lib.mkDefault true;

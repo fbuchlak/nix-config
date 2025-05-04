@@ -70,9 +70,9 @@ in
     );
 
   persist.home.directories.home = [
+    (xdg.homePathRel config "nix")
     (xdg.homePathRel config ".ssh")
     (xdg.homePathRel config "projects")
-    (xdg.homePathRel config "nix-config")
   ];
 
   persist.data.directories.home = [

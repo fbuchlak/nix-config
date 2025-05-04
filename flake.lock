@@ -286,11 +286,11 @@
     },
     "hardware": {
       "locked": {
-        "lastModified": 1745955289,
-        "narHash": "sha256-mmV2oPhQN+YF2wmnJzXX8tqgYmUYXUj3uUUBSTmYN5o=",
+        "lastModified": 1746341346,
+        "narHash": "sha256-WjupK5Xpc+viJlJWiyPHp/dF4aJItp1BPuFsEdv2/fI=",
         "owner": "nixos",
         "repo": "nixos-hardware",
-        "rev": "72081c9fbbef63765ae82bff9727ea79cc86bd5b",
+        "rev": "0833dc8bbc4ffa9cf9b0cbfccf1c5ec8632fc66e",
         "type": "github"
       },
       "original": {
@@ -416,6 +416,41 @@
         "owner": "neovim",
         "repo": "neovim",
         "type": "github"
+      }
+    },
+    "nix-private-config": {
+      "locked": {
+        "lastModified": 1746341116,
+        "narHash": "sha256-Uy5pysoCaXHiGdgWPiaVYW71/VAG/Owin+xTOZQOIgI=",
+        "ref": "main",
+        "rev": "baa753a7211c0b6580ca7e7f232410aed3efc677",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/fbuchlak/nix-private-config.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@github.com/fbuchlak/nix-private-config.git"
+      }
+    },
+    "nix-secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1746340368,
+        "narHash": "sha256-yTNTeHCKd8Xivas0Ov64Ub9P8vjTM8w67794Qxag/HU=",
+        "ref": "main",
+        "rev": "22a55303f648ee515724a0ccd089e1877ab3bf57",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@gitlab.com/fbuchlak/nix-secrets.git"
+      },
+      "original": {
+        "ref": "main",
+        "shallow": true,
+        "type": "git",
+        "url": "ssh://git@gitlab.com/fbuchlak/nix-secrets.git"
       }
     },
     "nixcord": {
@@ -657,6 +692,8 @@
         "impermanence": "impermanence",
         "mozilla-addons-to-nix": "mozilla-addons-to-nix",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
+        "nix-private-config": "nix-private-config",
+        "nix-secrets": "nix-secrets",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_6",
         "nixpkgs-stable": "nixpkgs-stable_2",

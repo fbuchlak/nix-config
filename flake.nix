@@ -29,6 +29,16 @@
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     mozilla-addons-to-nix.url = "sourcehut:~rycee/mozilla-addons-to-nix";
 
+    # Private
+    nix-secrets = {
+      url = "git+ssh://git@gitlab.com/fbuchlak/nix-secrets.git?ref=main&shallow=1";
+      flake = false;
+    };
+    nix-private-config = {
+      url = "git+ssh://git@github.com/fbuchlak/nix-private-config.git?ref=main&shallow=1";
+      flake = true;
+    };
+
   };
 
   outputs =

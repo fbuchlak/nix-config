@@ -56,6 +56,19 @@
     hostName = "vesna";
     networkmanager.enable = true;
     enableIPv6 = false;
+    extraHosts = lib.mkMerge [
+      inputs.nix-private-config.networking.extraHosts or ""
+    ];
+  };
+
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      listen-address = "127.0.0.1";
+      address = lib.mkMerge [
+        inputs.nix-private-config.dnsmasq.addresses.tlds or [ ]
+      ];
+    };
   };
 
   programs.light = {

@@ -12,12 +12,20 @@
     php84Packages.composer
     nodejs
     yarn
+    bun
 
+    pv
     zip
     unzip
     entr
 
+    qpdf
     dos2unix
+    dnsutils
+
+    gimp
+    libreoffice
+    simplescreenrecorder
   ];
 
 }

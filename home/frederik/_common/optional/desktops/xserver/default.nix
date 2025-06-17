@@ -20,14 +20,17 @@ in
   nixpkgs.overlays = [
     (_final: prev: {
       dmenu = prev.dmenu.overrideAttrs {
+        __intentionallyOverridingVersion = true;
         version = "5.3";
         patches = patches ./patches/dmenu/5.3;
       };
       dwm = prev.dwm.overrideAttrs {
+        __intentionallyOverridingVersion = true;
         version = "6.5";
         patches = patches ./patches/dwm/6.5;
       };
       st = prev.st.overrideAttrs (prev: {
+        __intentionallyOverridingVersion = true;
         version = "0.9.2";
         patches = patches ./patches/st/0.9.2;
         buildInputs = (prev.buildInputs or [ ]) ++ [ pkgs.xorg.libXcursor ];

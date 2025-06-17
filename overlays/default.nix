@@ -1,12 +1,12 @@
 { inputs, ... }:
-{
+let
 
   additions = final: _prev: import ../packages final.pkgs;
 
   modifications = _final: _prev: { };
 
   stable-packages = final: _prev: {
-    unstable = import inputs.nixpkgs-stable {
+    stable = import inputs.nixpkgs-stable {
       inherit (final) system;
       config.allowUnfree = false;
     };
@@ -25,4 +25,13 @@
     };
   };
 
+in
+{
+  default =
+    final: prev:
+    (additions final prev)
+    // (modifications final prev)
+    // (stable-packages final prev)
+    // (unstable-packages final prev)
+    // (custom-firefox-addons final prev);
 }

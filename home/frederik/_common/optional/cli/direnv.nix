@@ -7,4 +7,6 @@ _: {
     nix-direnv.enable = true;
   };
 
+  persist.home.directories.data = [ "direnv" ];
+
 }

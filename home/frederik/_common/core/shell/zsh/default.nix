@@ -83,7 +83,8 @@ in
 
           function __zshrc_custom_bindkeys () {
               bindkey '^ ' autosuggest-accept
-              bindkey -M viins '^R' fzf-history-widget
+              bindkey -M vicmd '^R' atuin-search
+              bindkey -M viins '^R' atuin-search
 
               function __zshrc_dirup () {
                   builtin cd ..

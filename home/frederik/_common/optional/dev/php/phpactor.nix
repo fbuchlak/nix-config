@@ -1,6 +1,6 @@
 {
   my,
-  pkgs,
+  pkgs-system,
   config,
   ...
 }:
@@ -10,7 +10,7 @@ let
 in
 {
 
-  home.packages = with pkgs; [ phpactor ];
+  home.packages = with pkgs-system.unstable; [ phpactor ];
 
   home.file."${xdg.configPathRel config "phpactor/templates"}".source = ./phpactor/templates;
   home.file."${xdg.configPathRel config "phpactor/phpactor.yml"}".text = ''

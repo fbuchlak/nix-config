@@ -1,6 +1,6 @@
 {
   my,
-  pkgs,
+  pkgs-system,
   config,
   ...
 }:
@@ -14,8 +14,10 @@ in
     NPM_CONFIG_CACHE = xdg.cachePath config "npm";
   };
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs-system.unstable; [
     nodejs
+    bun
+    pnpm
     yarn
   ];
 
@@ -29,6 +31,8 @@ in
   persist.home.directories.data = [ "npm" ];
   persist.cache.directories.cache = [
     "npm"
+    ".bun"
+    "pnpm"
     "yarn"
     "typescript"
   ];

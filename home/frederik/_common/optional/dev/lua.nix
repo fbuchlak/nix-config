@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, pkgs-system, ... }:
 let
   lua51 = pkgs.lua5_1;
   lua51bin = pkgs.writeShellScriptBin "lua5.1" ''
@@ -11,6 +11,7 @@ in
     lua
     luarocks
     lua51bin
+    pkgs-system.unstable.stylua
   ];
 
 }

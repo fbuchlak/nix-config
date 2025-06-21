@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  pkgs-system,
+  inputs,
+  ...
+}:
 {
 
   # TODO: fetch config from https://github.com/fbuchlak/SimpleNvim
@@ -26,18 +31,18 @@
       unzip
       gnumake
       python3
-      tree-sitter
-      php84
-      php84Packages.composer
-      nodejs
+      pkgs-system.unstable.tree-sitter
+      pkgs-system.unstable.php84
+      pkgs-system.unstable.php84Packages.composer
+      pkgs-system.unstable.nodejs
       nixfmt-rfc-style
       nil
       statix
       deadnix
-      stylua
+      pkgs-system.unstable.stylua
       lua-language-server
-      typos-lsp
-      biome
+      pkgs-system.unstable.typos-lsp
+      pkgs-system.unstable.biome
       marksman
     ];
   };

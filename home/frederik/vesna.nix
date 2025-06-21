@@ -16,6 +16,6 @@
 
   ];
 
-  persist.home.directories.home = [ ".aws" ];
+  persist.cache.directories.cache = [ "nix" ];
 
 }

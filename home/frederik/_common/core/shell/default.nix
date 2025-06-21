@@ -5,7 +5,9 @@
 
   home.shellAliases = {
 
+    l = "ls -alh";
     ls = "ls -hN --color=auto";
+    la = "ls -alF";
     ll = "ls -alF --group-directories-first";
 
     cal = "cal -m --color=auto";

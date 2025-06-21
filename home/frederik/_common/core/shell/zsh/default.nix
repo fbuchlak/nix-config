@@ -55,6 +55,8 @@ in
           source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
           source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
           source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+
+          export LS_COLORS=$(${pkgs.vivid}/bin/vivid generate catppuccin-mocha)
         '';
         zshInitExtra = lib.mkOrder 1000 ''
           stty start undef
@@ -81,6 +83,7 @@ in
 
           function __zshrc_custom_bindkeys () {
               bindkey '^ ' autosuggest-accept
+              bindkey -M viins '^R' fzf-history-widget
 
               function __zshrc_dirup () {
                   builtin cd ..

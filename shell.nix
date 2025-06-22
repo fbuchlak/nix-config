@@ -21,6 +21,7 @@
     nativeBuildInputs = with pkgs; [
       git
       nix
+      just
       home-manager
       inputs.mozilla-addons-to-nix.packages.${pkgs.system}.default
     ];

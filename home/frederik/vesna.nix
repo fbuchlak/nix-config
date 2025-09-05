@@ -11,6 +11,7 @@
     _common/optional/gui
     _common/optional/cli
     _common/optional/dev
+    _common/optional/llm
 
     _common/optional/virt/podman.nix
 

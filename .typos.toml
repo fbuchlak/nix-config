@@ -1,4 +1,8 @@
 [default]
 binary = false
+check-filename = true
+extend-ignore-re = [
+    "0js9z5kn8hmpxzfmb2g6zsy28zkpg88j3wih5wixc89b8x7ms8bb", # st sha256
+]
 
 [default.extend-words]

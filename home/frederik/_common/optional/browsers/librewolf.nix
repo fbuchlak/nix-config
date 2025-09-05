@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   pkgs-system,
   inputs,
@@ -16,8 +15,14 @@ in
     nativeMessagingHosts = with pkgs; [ tridactyl-native ];
     profiles = {
 
+      default = {
+        id = 9999;
+        isDefault = false;
+      };
+
       frederik = {
-        id = lib.mkForce 0;
+        id = 0;
+        isDefault = true;
 
         extensions = {
           force = true;

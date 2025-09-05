@@ -40,7 +40,7 @@
   home-manager.users.frederik = import (my.lib.config.path "home/frederik/vesna.nix");
 
   # System
-  boot.kernelPackages = pkgs.linuxPackages_6_15;
+  boot.kernelPackages = pkgs.linuxPackages_6_16;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.tmp.cleanOnBoot = true;

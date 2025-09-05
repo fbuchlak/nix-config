@@ -36,5 +36,6 @@ in
     "yarn"
     "typescript"
   ];
+  persist.cache.directories.data = [ "yarn" ];
 
 }

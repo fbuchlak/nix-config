@@ -4,9 +4,10 @@
 
   inputs = {
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-rolling.url = "github:nixos/nixpkgs/nixos-unstable-small";
     hardware.url = "github:nixos/nixos-hardware/master";
 
     pre-commit-hooks.url = "github:cachix/git-hooks.nix";

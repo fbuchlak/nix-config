@@ -20,18 +20,24 @@ in
   nixpkgs.overlays = [
     (_final: prev: {
       dmenu = prev.dmenu.overrideAttrs {
-        __intentionallyOverridingVersion = true;
-        version = "5.3";
+        src = builtins.fetchurl {
+          url = "https://dl.suckless.org/tools/dmenu-5.3.tar.gz";
+          sha256 = "0pvr6da1v7hmbnacpgxcxv1sakg1nckmw347xhwrhx1dzpk573qs";
+        };
         patches = patches ./patches/dmenu/5.3;
       };
       dwm = prev.dwm.overrideAttrs {
-        __intentionallyOverridingVersion = true;
-        version = "6.5";
-        patches = patches ./patches/dwm/6.5;
+        src = builtins.fetchurl {
+          url = "https://dl.suckless.org/dwm/dwm-6.5.tar.gz";
+          sha256 = "0acpl05rg6rg6nrg3rv4kp388iqzp1n6dhin30a97yzjm6zrxmr1";
+        };
+        patches = patches ./patches/dmenu/5.3;
       };
       st = prev.st.overrideAttrs (prev: {
-        __intentionallyOverridingVersion = true;
-        version = "0.9.2";
+        src = builtins.fetchurl {
+          url = "https://dl.suckless.org/st/st-0.9.2.tar.gz";
+          sha256 = "0js9z5kn8hmpxzfmb2g6zsy28zkpg88j3wih5wixc89b8x7ms8bb";
+        };
         patches = patches ./patches/st/0.9.2;
         buildInputs = (prev.buildInputs or [ ]) ++ [ pkgs.xorg.libXcursor ];
       });

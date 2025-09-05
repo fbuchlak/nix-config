@@ -21,16 +21,17 @@ in
       group = sysadmin;
       password = "changeme";
       isNormalUser = true;
-      extraGroups =
-        [ "wheel" ]
-        ++ my.lib.user.filterGroups config [
-          sysadmin
-          "users"
-          "git"
-          "audio"
-          "video"
-          "networkmanager"
-        ];
+      extraGroups = [
+        "wheel"
+      ]
+      ++ my.lib.user.filterGroups config [
+        sysadmin
+        "users"
+        "git"
+        "audio"
+        "video"
+        "networkmanager"
+      ];
     };
 
     programs.zsh.enable = true;

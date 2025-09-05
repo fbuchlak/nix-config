@@ -522,22 +522,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-rolling": {
-      "locked": {
-        "lastModified": 1757007868,
-        "narHash": "sha256-zekS8JUSNEiphLnjWJBFoaX4Kb8GxiiD6FvoKZI+8b0=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "36420cc41abb467f89082432cfe139f5fdbdcea3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "nixos-unstable-small",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs-stable": {
       "locked": {
         "lastModified": 1756886854,
@@ -556,16 +540,16 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1756787288,
-        "narHash": "sha256-rw/PHa1cqiePdBxhF66V7R+WAP8WekQ0mCDG4CFqT8Y=",
+        "lastModified": 1757050802,
+        "narHash": "sha256-JemPHwGhQT/y4dEEeZYVvB+WiHAsPz9mn8dCLtQFBrM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "d0fc30899600b9b3466ddb260fd83deb486c32f1",
+        "rev": "5bdcc888361c30db87c2d99f7795ac2a91c9aa11",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-unstable",
+        "ref": "nixos-unstable-small",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -636,16 +620,16 @@
     },
     "nixpkgs_6": {
       "locked": {
-        "lastModified": 1756886854,
-        "narHash": "sha256-6tooT142NLcFjt24Gi4B0G1pgWLvfw7y93sYEfSHlLI=",
+        "lastModified": 1756787288,
+        "narHash": "sha256-rw/PHa1cqiePdBxhF66V7R+WAP8WekQ0mCDG4CFqT8Y=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "0e6684e6c5755325f801bda1751a8a4038145d7d",
+        "rev": "d0fc30899600b9b3466ddb260fd83deb486c32f1",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-25.05",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -723,7 +707,6 @@
         "nix-secrets": "nix-secrets",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_6",
-        "nixpkgs-rolling": "nixpkgs-rolling",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "pre-commit-hooks": "pre-commit-hooks_2"

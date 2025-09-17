@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ lib, inputs, ... }:
 let
 
   additions = final: _prev: import ../packages final.pkgs;
@@ -15,7 +15,14 @@ let
   unstable-packages = final: _prev: {
     unstable = import inputs.nixpkgs-unstable {
       inherit (final) system;
-      config.allowUnfree = false;
+      config = {
+        allowUnfree = false;
+        allowUnfreePredicate =
+          pkg:
+          builtins.elem (lib.getName pkg) [
+            "claude-code"
+          ];
+      };
     };
   };
 

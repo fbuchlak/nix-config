@@ -72,7 +72,7 @@
       nixosModules = import ./modules/nixos;
       homeManagerModules = import ./modules/home-manager;
 
-      overlays = import ./overlays { inherit my inputs; };
+      overlays = import ./overlays { inherit my lib inputs; };
       packages = forAllSystems (
         system:
         let

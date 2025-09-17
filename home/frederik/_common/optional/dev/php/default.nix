@@ -9,7 +9,7 @@
   home.packages = with pkgs-system.unstable; [
     ### core packages
     php84
-    php84Packages.psysh
+    psysh
     php84Packages.composer
     ### style
     mago

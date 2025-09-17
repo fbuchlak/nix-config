@@ -27,11 +27,13 @@ in
         patches = patches ./patches/dmenu/5.3;
       };
       dwm = prev.dwm.overrideAttrs {
+        version = "6.5";
         src = builtins.fetchurl {
           url = "https://dl.suckless.org/dwm/dwm-6.5.tar.gz";
           sha256 = "0acpl05rg6rg6nrg3rv4kp388iqzp1n6dhin30a97yzjm6zrxmr1";
         };
         patches = patches ./patches/dwm/6.5;
+        buildInputs = prev.dwm.buildInputs ++ [ prev.xorg.libxcb ];
       };
       st = prev.st.overrideAttrs (prev: {
         src = builtins.fetchurl {
